@@ -12,5 +12,8 @@
   },
   "keywords": [],
   "author": "Luca Casola",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "prettier": "3.5.3"
+  }
 }
