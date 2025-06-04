@@ -1,9 +1,9 @@
 // src/auth/index.js
 
-// Make sure our env isn't configured for both AWS Cognito and HTTP Basic Auth.
-// We can only do one or the other.  If your .env file contains all 3 of these
-// variables, something is wrong.  It should have AWS_COGNITO_POOL_ID and
-// AWS_COGNITO_CLIENT_ID together OR HTPASSWD_FILE on its own.
+// Authorization configuration for the Fragments API. 
+// This module exports the appropriate authentication strategy based on environment variables.
+// It supports both AWS Cognito (production) and HTTP Basic Auth (development), but not both at the same time.
+
 if (
   process.env.AWS_COGNITO_POOL_ID &&
   process.env.AWS_COGNITO_CLIENT_ID &&
@@ -18,11 +18,11 @@ if (
 if (process.env.AWS_COGNITO_POOL_ID && process.env.AWS_COGNITO_CLIENT_ID) {
   module.exports = require('./cognito');
 }
-// Also allow for an .htpasswd file to be used, but not in production
+// Also allow for an .htpasswd file to be used (development)
 else if (process.env.HTPASSWD_FILE && process.NODE_ENV !== 'production') {
   module.exports = require('./basic-auth');
 }
-// In all other cases, we need to stop now and fix our config
+// In all other cases, stop and fix our config
 else {
   throw new Error('missing env vars: no authorization configuration found');
 }

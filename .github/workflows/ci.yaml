@@ -4,8 +4,7 @@
 name: ci
 
 # This workflow will run whenever we push commits to the `main` branch, or
-# whenever there's a pull request to the `main` branch. See:
-# https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#on
+# whenever there's a pull request to the `main` branch. 
 on:
   pull_request:
     branches:
@@ -56,13 +55,4 @@ jobs:
           cache: 'npm'
 
       - name: Install node dependencies and run Tests
-        # There are two ways we could do this:
-        #
-        # 1. Call `npm ci` followed by `npm test` like so (NOTE: the use of | and -):
-        # run: |
-        # - npm install
-        # - npm test
-        #
-        # 2. Use `install-ci-test` to do it in a single command, see https://docs.npmjs.com/cli/v8/commands/npm-install-ci-test
-        # run: npm install-ci-test
         run: npm install-ci-test

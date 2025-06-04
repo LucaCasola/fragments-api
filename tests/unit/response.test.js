@@ -2,12 +2,10 @@
 
 const { createErrorResponse, createSuccessResponse } = require('../../src/response');
 
-// Define (i.e., name) the set of tests we're about to do
 describe('API Responses', () => {
-  // Write a test for calling createErrorResponse()
-  test('createErrorResponse()', () => {
+  // If createErrorResponse() is called with no argument,s should return a response with just the status and message "not found".
+  test('Call createErrorResponse() with no args. Should return status and message', () => {
     const errorResponse = createErrorResponse(404, 'not found');
-    // Expect the result to look like the following
     expect(errorResponse).toEqual({
       status: 'error',
       error: {
@@ -17,22 +15,19 @@ describe('API Responses', () => {
     });
   });
 
-  // Write a test for calling createSuccessResponse() with no argument
-  test('createSuccessResponse()', () => {
-    // No arg passed
+  // Calling createSuccessResponse() with no argument should return a response with just the status.
+  test('Call createErrorResponse(). Should return status and message.', () => {
     const successResponse = createSuccessResponse();
-    // Expect the result to look like the following
     expect(successResponse).toEqual({
       status: 'ok',
     });
   });
 
-  // Write a test for calling createSuccessResponse() with an argument
-  test('createSuccessResponse(data)', () => {
+  // Calling createSuccessResponse(data) with argument should return a response with the status and data.
+  test('Call createErrorResponse(data). Should return status and data.', () => {
     // Data argument included
     const data = { a: 1, b: 2 };
     const successResponse = createSuccessResponse(data);
-    // Expect the result to look like the following
     expect(successResponse).toEqual({
       status: 'ok',
       a: 1,
