@@ -7,21 +7,21 @@ Please make sure that all of the following items have been successfully complete
 ## API Server Checklist
 
 - [x] fragments git repo set up correctly (e.g., README, .gitignore, etc)
-- [ ] npm, eslint, prettier, scripts, and other dev environment settings set up correctly
+- [x] npm, eslint, prettier, scripts, and other dev environment settings set up correctly
 - [ ] properly formatted source code, with extraneous comments removed (e.g., `// TODO`)
 - [ ] structured logging with Pino, uses proper log levels throughout code (i.e., make sure you have used info, debug, warn, error logs everywhere). No `console.log()`.
-- [ ] API with express, middleware, routes, error handling set up correctly
-- [ ] environment variables properly managed via `dotenv`, `.env` files
+- [x] API with express, middleware, routes, error handling set up correctly
+- [x] environment variables properly managed via `dotenv`, `.env` files
 - [ ] no secrets or generated files included in git repos (i.e., only source code and config files)
-- [ ] unit testing using `jest` and `supertest` set up correctly
+- [x] unit testing using `jest` and `supertest` set up correctly
 - [ ] proper testing vs. development environment setup (configs, env, scripts)
-- [ ] test coverage reporting/scripts configured properly
-- [ ] GitHub Actions CI Workflow for eslint and unit tests set up correctly
+- [x] test coverage reporting/scripts configured properly
+- [x] GitHub Actions CI Workflow for eslint and unit tests set up correctly
 - [ ] all API routes use proper `/v1` version
 - [ ] all routes are secured using Passport.js based auth, configurable using either Cognito or Basic Auth
 - [ ] fragment data model working with In-Memory DB, with unit tests
 - [ ] success and error responses use correct JSON format, with unit tests. See 3.1, 3.2.
-- [ ] `GET /` returns a non-cacheable health check, with unit tests. See 4.1.
+- [x] `GET /` returns a non-cacheable health check, with unit tests. See 4.1.
 - [ ] `POST /fragments` creates a fragment (only plain text support required at this point), with unit tests. See 4.3.
 - [ ] `GET /fragments` returns a list of the authenticated user's existing fragment IDs, if any. See 4.4.
 - [ ] `GET /fragments/:id` returns an existing fragment (only plain text support required at this point), with unit tests. See 4.5.
@@ -29,12 +29,12 @@ Please make sure that all of the following items have been successfully complete
 
 ## Front-End Web Testing UI Checklist
 
-- [ ] fragments-ui git repo set up correctly (e.g., README, .gitignore, etc)
-- [ ] npm, eslint, prettier, scripts and other dev environment settings set up correctly
+- [x] fragments-ui git repo set up correctly (e.g., README, .gitignore, etc)
+- [x] npm, eslint, prettier, scripts and other dev environment settings set up correctly
 - [ ] Proper setup and use of a bundler (e.g., Parcel or framework like React, etc.)
 - [ ] basic web app working for manually testing API server
 - [ ] AWS Cognito Hosted Auth set up correctly
-- [ ] web app uses Cognito OAuth2 for user authentication/authorization
+- [x] web app uses Cognito OAuth2 for user authentication/authorization
 - [ ] web app can be configured to use different back-end API servers (e.g., dev on localhost vs. prod on EC2 instance)
 - [ ] users are able to create a simple text fragment and have it get stored in the fragments server
 - [ ] web app running on localhost is able to use Amazon Cognito and the EC2 hosted backend server
