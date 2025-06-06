@@ -6,6 +6,7 @@ const helmet = require('helmet');
 const compression = require('compression');
 const passport = require('passport');
 const authenticate = require('./auth');
+const data = require('./model/data');
 
 const logger = require('./logger');
 const pino = require('pino-http')({
