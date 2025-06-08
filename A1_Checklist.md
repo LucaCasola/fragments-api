@@ -43,14 +43,14 @@ Please make sure that all of the following items have been successfully complete
 
 Make sure you have implemented all of the hints, code, and tests below.
 
-- [ ] Implement an initial `fragments` data model in `src/model/*` with **unit tests**:
-  - [ ] Use an In-Memory Database backend to start (we will switch to AWS backend data stores later). See the provided implementation [src/model/data/memory/memory-db.js](src/model/data/memory/memory-db.js) and unit tests [tests/unit/memory-db.test.js](tests/unit/memory-db.test.js). Get these both integrated into your microservice and passing CI.
-  - [ ] Implement fragment database related calls using the In-Memory Database backend. See the provided implementation [src/model/data/memory/index.js](src/model/data/memory/index.js) and **write your own tests** for it in `test/unit/memory.test.js`. Make sure you cover all of the following `async` functions (i.e., they all return a `Promise`) and pass CI:
-    - [ ] `readFragment`
-    - [ ] `writeFragment`
-    - [ ] `readFragmentData`,
-    - [ ] `writeFragmentData`
-  - [ ] Add code to pick the appropriate back-end data strategy (we currently only have 1, our `memory` strategy, but we'll add ones for AWS later). Create `src/model/data/index.js` and have it re-export the `memory` module: `module.exports = require('./memory');`
+- [x] Implement an initial `fragments` data model in `src/model/*` with **unit tests**:
+  - [x] Use an In-Memory Database backend to start (we will switch to AWS backend data stores later). See the provided implementation [src/model/data/memory/memory-db.js](src/model/data/memory/memory-db.js) and unit tests [tests/unit/memory-db.test.js](tests/unit/memory-db.test.js). Get these both integrated into your microservice and passing CI.
+  - [x] Implement fragment database related calls using the In-Memory Database backend. See the provided implementation [src/model/data/memory/index.js](src/model/data/memory/index.js) and **write your own tests** for it in `test/unit/memory.test.js`. Make sure you cover all of the following `async` functions (i.e., they all return a `Promise`) and pass CI:
+    - [x] `readFragment`
+    - [x] `writeFragment`
+    - [x] `readFragmentData`,
+    - [x] `writeFragmentData`
+  - [x] Add code to pick the appropriate back-end data strategy (we currently only have 1, our `memory` strategy, but we'll add ones for AWS later). Create `src/model/data/index.js` and have it re-export the `memory` module: `module.exports = require('./memory');`
   - [ ] Implement a `Fragment` class to use your Data Model and In-Memory database. See implementation outline in [src/model/fragment.js](src/model/fragment.js) and complete tests in [tests/unit/fragment.test.js](tests/unit/fragment.test.js). Write the code implementation necessary to get all these tests passing in CI. This is an example of **Test Driven Development (TDD)**.
 - [ ] Write a `POST /fragments` route with **unit tests** using your `Fragment` class:
 
