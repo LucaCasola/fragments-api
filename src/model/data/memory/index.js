@@ -43,7 +43,7 @@ function writeFragmentData(ownerId, id, buffer) {
 }
 
 /**
- * Write a fragment's data buffer to memory db. Returns a Promise
+ * Read a fragment's data from memory db. Returns a Promise
  * @param {string} ownerId
  * @param {string} id
  * @returns {Promise<any>}
