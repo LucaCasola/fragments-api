@@ -8,18 +8,18 @@ Please make sure that all of the following items have been successfully complete
 
 - [x] fragments git repo set up correctly (e.g., README, .gitignore, etc)
 - [x] npm, eslint, prettier, scripts, and other dev environment settings set up correctly
-- [ ] properly formatted source code, with extraneous comments removed (e.g., `// TODO`)
-- [ ] structured logging with Pino, uses proper log levels throughout code (i.e., make sure you have used info, debug, warn, error logs everywhere). No `console.log()`.
+- [x] properly formatted source code, with extraneous comments removed (e.g., `// TODO`)
+- [x] structured logging with Pino, uses proper log levels throughout code (i.e., make sure you have used info, debug, warn, error logs everywhere). No `console.log()`.
 - [x] API with express, middleware, routes, error handling set up correctly
 - [x] environment variables properly managed via `dotenv`, `.env` files
-- [ ] no secrets or generated files included in git repos (i.e., only source code and config files)
+- [x] no secrets or generated files included in git repos (i.e., only source code and config files)
 - [x] unit testing using `jest` and `supertest` set up correctly
-- [ ] proper testing vs. development environment setup (configs, env, scripts)
+- [x] proper testing vs. development environment setup (configs, env, scripts)
 - [x] test coverage reporting/scripts configured properly
 - [x] GitHub Actions CI Workflow for eslint and unit tests set up correctly
 - [ ] all API routes use proper `/v1` version
 - [ ] all routes are secured using Passport.js based auth, configurable using either Cognito or Basic Auth
-- [ ] fragment data model working with In-Memory DB, with unit tests
+- [x] fragment data model working with In-Memory DB, with unit tests
 - [ ] success and error responses use correct JSON format, with unit tests. See 3.1, 3.2.
 - [x] `GET /` returns a non-cacheable health check, with unit tests. See 4.1.
 - [ ] `POST /fragments` creates a fragment (only plain text support required at this point), with unit tests. See 4.3.
@@ -31,9 +31,9 @@ Please make sure that all of the following items have been successfully complete
 
 - [x] fragments-ui git repo set up correctly (e.g., README, .gitignore, etc)
 - [x] npm, eslint, prettier, scripts and other dev environment settings set up correctly
-- [ ] Proper setup and use of a bundler (e.g., Parcel or framework like React, etc.)
+- [x] Proper setup and use of a bundler (e.g., Parcel or framework like React, etc.)
 - [ ] basic web app working for manually testing API server
-- [ ] AWS Cognito Hosted Auth set up correctly
+- [x] AWS Cognito Hosted Auth set up correctly
 - [x] web app uses Cognito OAuth2 for user authentication/authorization
 - [ ] web app can be configured to use different back-end API servers (e.g., dev on localhost vs. prod on EC2 instance)
 - [ ] users are able to create a simple text fragment and have it get stored in the fragments server
@@ -51,7 +51,7 @@ Make sure you have implemented all of the hints, code, and tests below.
     - [x] `readFragmentData`,
     - [x] `writeFragmentData`
   - [x] Add code to pick the appropriate back-end data strategy (we currently only have 1, our `memory` strategy, but we'll add ones for AWS later). Create `src/model/data/index.js` and have it re-export the `memory` module: `module.exports = require('./memory');`
-  - [ ] Implement a `Fragment` class to use your Data Model and In-Memory database. See implementation outline in [src/model/fragment.js](src/model/fragment.js) and complete tests in [tests/unit/fragment.test.js](tests/unit/fragment.test.js). Write the code implementation necessary to get all these tests passing in CI. This is an example of **Test Driven Development (TDD)**.
+  - [x] Implement a `Fragment` class to use your Data Model and In-Memory database. See implementation outline in [src/model/fragment.js](src/model/fragment.js) and complete tests in [tests/unit/fragment.test.js](tests/unit/fragment.test.js). Write the code implementation necessary to get all these tests passing in CI. This is an example of **Test Driven Development (TDD)**.
 - [ ] Write a `POST /fragments` route with **unit tests** using your `Fragment` class:
 
   - [ ] Parse the `Content-Type` header using the [content-type](https://www.npmjs.com/package/content-type) module, and error/log on unknown types.
