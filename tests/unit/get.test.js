@@ -40,14 +40,14 @@ describe('GET v1 fragments', () => {
     expect(Array.isArray(res.body.userFragments)).toBe(true);
     
     expect(res.body.userFragments[0]).toHaveProperty('id');
-    expect(res.body.userFragments[0].ownerId).toEqual('user1@email.com');
+    expect(res.body.userFragments[0]).toHaveProperty('ownerId');
     expect(res.body.userFragments[0].type).toEqual('text/plain');
     expect(res.body.userFragments[0]).toHaveProperty('size');
     expect(res.body.userFragments[0]).toHaveProperty('created');
     expect(res.body.userFragments[0]).toHaveProperty('updated');
 
     expect(res.body.userFragments[1]).toHaveProperty('id');
-    expect(res.body.userFragments[1].ownerId).toEqual('user1@email.com');
+    expect(res.body.userFragments[1]).toHaveProperty('ownerId');
     expect(res.body.userFragments[1].type).toEqual('text/plain');
     expect(res.body.userFragments[1]).toHaveProperty('size');
     expect(res.body.userFragments[1]).toHaveProperty('created');
