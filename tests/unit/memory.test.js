@@ -1,7 +1,7 @@
 const { _resetDBs, readFragment, readFragmentData, writeFragment, writeFragmentData, listFragments, deleteFragment } = require('../../src/model/data/memory');
 
 
-describe('memory-db', () => {
+describe('memory', () => {
 
   // Clear DBs before each test
   beforeEach(async () => {
