@@ -20,8 +20,37 @@ describe('GET v1 fragments', () => {
     const res = await request(app).get('/v1/fragments').auth('user1@email.com', 'password1');
     expect(res.statusCode).toBe(200);
     expect(res.body.status).toBe('ok');
-    expect(Array.isArray(res.body.fragments)).toBe(true);
+    expect(Array.isArray(res.body.userFragments)).toBe(true);
   });
 
-  // TODO: we'll need to add tests to check the contents of the fragments array later
+  test('all fragments for specific user are returned in array userFragments[]', async () => {
+    await request(app).post('/v1/fragments')
+      .set('Content-Type', 'text/plain')  // Set a valid Content-Type header
+      .send(Buffer.from('11111'))  // Send a valid Buffer as the request body
+      .auth('user1@email.com', 'password1');  // Send valid credentials
+
+    await request(app).post('/v1/fragments')
+      .set('Content-Type', 'text/plain')  // Set a valid Content-Type header
+      .send(Buffer.from('22222'))  // Send a valid Buffer as the request body
+      .auth('user1@email.com', 'password1');  // Send valid credentials
+
+    const res = await request(app).get('/v1/fragments').auth('user1@email.com', 'password1');
+    expect(res.statusCode).toBe(200);
+    expect(res.body.status).toBe('ok');
+    expect(Array.isArray(res.body.userFragments)).toBe(true);
+    
+    expect(res.body.userFragments[0]).toHaveProperty('id');
+    expect(res.body.userFragments[0].ownerId).toEqual('user1@email.com');
+    expect(res.body.userFragments[0].type).toEqual('text/plain');
+    expect(res.body.userFragments[0]).toHaveProperty('size');
+    expect(res.body.userFragments[0]).toHaveProperty('created');
+    expect(res.body.userFragments[0]).toHaveProperty('updated');
+
+    expect(res.body.userFragments[1]).toHaveProperty('id');
+    expect(res.body.userFragments[1].ownerId).toEqual('user1@email.com');
+    expect(res.body.userFragments[1].type).toEqual('text/plain');
+    expect(res.body.userFragments[1]).toHaveProperty('size');
+    expect(res.body.userFragments[1]).toHaveProperty('created');
+    expect(res.body.userFragments[1]).toHaveProperty('updated');
+  });
 });
