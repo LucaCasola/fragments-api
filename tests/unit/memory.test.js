@@ -1,4 +1,4 @@
-const { _resetDBs, readFragment, readFragmentData, writeFragment, writeFragmentData, listFragments, deleteFragment } = require('../../src/model/data/memory');
+const { _resetDBs, readFragment, readFragmentData, writeFragment, writeFragmentData } = require('../../src/model/data/memory');
 
 
 describe('memory', () => {
