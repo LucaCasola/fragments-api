@@ -268,10 +268,11 @@ class Fragment {
       mimeType = contentType.parse(value).type;
     } catch {
       // If parsing fails, fallback to the original value
+      mimeType = value;
     }
 
     for (const format of validTypes) {
-      if (format === mimeType) {
+      if (format == mimeType) {
         isSupported = true;
         break;
       }
