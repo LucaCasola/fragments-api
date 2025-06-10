@@ -159,17 +159,6 @@ describe('Fragment class', () => {
     });
   });
 
-  describe('formats', () => {
-    test('formats returns the expected result for plain text', () => {
-      const fragment = new Fragment({
-        ownerId: '1234',
-        type: 'text/plain; charset=utf-8',
-        size: 0,
-      });
-      expect(fragment.formats).toEqual(['text/plain']);
-    });
-  });
-
   describe('save(), getData(), setData(), byId(), byUser(), delete()', () => {
     test('byUser() returns an empty array if there are no fragments for this user', async () => {
       expect(await Fragment.byUser('1234')).toEqual([]);
@@ -208,8 +197,6 @@ describe('Fragment class', () => {
       const fragment2 = await Fragment.byId(ownerId, fragment.id);
       expect(Date.parse(fragment2.updated)).toBeGreaterThan(Date.parse(modified1));
     });
-
-    
 
     test("a fragment is added to the list of a user's fragments", async () => {
       const data = Buffer.from('hello');
@@ -264,16 +251,16 @@ describe('Fragment class', () => {
         type: 'text/plain',
         size: 0,
       });
-      expect(fragment.formats).toEqual(['.txt']);
+      expect(fragment.formats).toEqual(['text/plain']);
     });
-    /*
+    /* TODO: Uncomment when other formats are supported
     test('formats() returns the expected result for markdown', () => {
       const fragment = new Fragment({
         ownerId: '1234',
         type: 'text/markdown',
         size: 0,
       });
-      expect(fragment.formats).toEqual(['.md', '.html', '.txt']);
+      expect(fragment.formats).toEqual(['text/markdown', 'text/html', 'text/plain']);
     });
 
     test('formats() returns the expected result for HTML', () => {
@@ -282,7 +269,7 @@ describe('Fragment class', () => {
         type: 'text/html',
         size: 0,
       });
-      expect(fragment.formats).toEqual(['.html', '.txt']);
+      expect(fragment.formats).toEqual(['text/html', 'text/plain']);
     });
 
     test('formats() returns the expected result for CSV', () => {
@@ -291,7 +278,7 @@ describe('Fragment class', () => {
         type: 'text/csv',
         size: 0,
       });
-      expect(fragment.formats).toEqual(['.csv', '.txt', '.json']);
+      expect(fragment.formats).toEqual(['text/csv', 'text/plain', 'application/json']);
     });
 
     test('formats() returns the expected result for JSON', () => {
@@ -300,7 +287,7 @@ describe('Fragment class', () => {
         type: 'application/json',
         size: 0,
       });
-      expect(fragment.formats).toEqual(['.json', '.yaml', '.yml', '.txt']);
+      expect(fragment.formats).toEqual(['application/json', 'application/yaml', 'application/yml', 'text/plain']);
     });
 
     test('formats() returns the expected result for YAML', () => {
@@ -309,7 +296,7 @@ describe('Fragment class', () => {
         type: 'application/yaml',
         size: 0,
       });
-      expect(fragment.formats).toEqual(['.yaml', '.txt']);
+      expect(fragment.formats).toEqual(['application/yaml', 'text/plain']);
     });
 
     test('formats() returns the expected result for image formats', () => {
@@ -320,7 +307,7 @@ describe('Fragment class', () => {
           type: type,
           size: 0,
         });
-        expect(fragment.formats).toEqual(['.png', '.jpg', '.webp', '.gif', '.avif']);
+        expect(fragment.formats).toEqual(['image/png', 'image/jpg', 'image/webp', 'image/gif', 'image/avif']);
       });
     });
     */

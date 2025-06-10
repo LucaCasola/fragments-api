@@ -20,9 +20,7 @@ const {
 // Valid types for type member of Fragment class
 const validTypes = [
   `text/plain`,
-  /*
-   Currently, only text/plain is supported. Others will be added later.
-
+  /* TODO: Uncomment when other formats are supported
   `text/markdown`,
   `text/html`,
   `text/csv`, ?
@@ -215,29 +213,29 @@ class Fragment {
       // Start of 'text' types
       case 'plain':
         logger.info(`text/plain type detected`);
-        formats = ['.txt'];
+        formats = ['text/plain'];
         break;
-      /*
+      /* TODO: Uncomment when other formats are supported
       case 'markdown':
         logger.info(`text/markdown type detected`);
-        formats = ['.md', '.html', '.txt'];
+        formats = ['text/markdown', 'text/html', 'text/plain'];
         break;
       case 'html':
         logger.info(`text/html type detected`);
-        formats = ['.html', '.txt'];
+        formats = ['text/html', 'text/plain'];
         break;
       case 'csv':
         logger.info(`text/csv type detected`);
-        formats = ['.csv', '.txt', '.json'];
+        formats = ['text/csv', 'text/plain', 'application/json'];
         break;
       // Start of 'application' types
       case 'json':
         logger.info(`application/json type detected`);
-        formats = ['.json', '.yaml', '.yml', '.txt'];
+        formats = ['application/json', 'application/yaml', 'application/yml', 'text/plain'];
         break;
       case 'yaml':
         logger.info(`application/yaml type detected`);
-        formats = ['.yaml', '.txt'];
+        formats = ['application/yaml', 'text/plain'];
         break;
       // Start of 'image' types
       case 'png':
@@ -246,7 +244,7 @@ class Fragment {
       case 'avif':
       case 'gif':
         logger.info(`image/png type detected`);
-        formats = ['.png', '.jpg', '.webp', '.gif', '.avif'];
+        formats = ['image/png', 'image/jpg', 'image/webp', 'image/gif', 'image/avif'];
         break;
       */
       default:
