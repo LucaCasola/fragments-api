@@ -17,12 +17,12 @@ Please make sure that all of the following items have been successfully complete
 - [x] proper testing vs. development environment setup (configs, env, scripts)
 - [x] test coverage reporting/scripts configured properly
 - [x] GitHub Actions CI Workflow for eslint and unit tests set up correctly
-- [ ] all API routes use proper `/v1` version
-- [ ] all routes are secured using Passport.js based auth, configurable using either Cognito or Basic Auth
+- [x] all API routes use proper `/v1` version
+- [x] all routes are secured using Passport.js based auth, configurable using either Cognito or Basic Auth
 - [x] fragment data model working with In-Memory DB, with unit tests
-- [ ] success and error responses use correct JSON format, with unit tests. See 3.1, 3.2.
+- [x] success and error responses use correct JSON format, with unit tests. See 3.1, 3.2.
 - [x] `GET /` returns a non-cacheable health check, with unit tests. See 4.1.
-- [ ] `POST /fragments` creates a fragment (only plain text support required at this point), with unit tests. See 4.3.
+- [x] `POST /fragments` creates a fragment (only plain text support required at this point), with unit tests. See 4.3.
 - [ ] `GET /fragments` returns a list of the authenticated user's existing fragment IDs, if any. See 4.4.
 - [ ] `GET /fragments/:id` returns an existing fragment (only plain text support required at this point), with unit tests. See 4.5.
 - [ ] server deployed manually, and successfully running on AWS EC2 instance, configured via `.env` to use Amazon Cognito for user authorization
@@ -79,12 +79,12 @@ Make sure you have implemented all of the hints, code, and tests below.
 
   - [x] Add an **environment variable**, `API_URL`, to allow you to configure your fragment microservice's URL when setting the `Location` header URL (i.e., when running locally it would be `http://localhost:8080`, but it will be different on AWS). TIP: you can use [`req.headers.host`](https://stackoverflow.com/questions/6503331/how-to-check-the-host-using-expressjs) to get the current host name and use that to create a new `URL()` for setting the `Location` header when `API_URL` is missing from the environment.
   - [x] Make sure you support `text/plain` fragments
-  - [ ] Your unit tests should include test cases for everything in the spec. Some examples to consider:
-    - [ ] authenticated vs unauthenticated requests (use HTTP Basic Auth, don't worry about Cognito in tests)
-    - [ ] authenticated users can create a plain text fragment
-    - [ ] responses include all necessary and expected properties (`id`, `created`, `type`, etc), and these values match what you expect for a given request (e.g., `size`, `type`, `ownerId`)
-    - [ ] POST response includes a `Location` header with a full URL to `GET` the created fragment
-    - [ ] trying to create a fragment with an unsupported type errors/logs as expected
+  - [x] Your unit tests should include test cases for everything in the spec. Some examples to consider:
+    - [x] authenticated vs unauthenticated requests (use HTTP Basic Auth, don't worry about Cognito in tests)
+    - [x] authenticated users can create a plain text fragment
+    - [x] responses include all necessary and expected properties (`id`, `created`, `type`, etc), and these values match what you expect for a given request (e.g., `size`, `type`, `ownerId`)
+    - [x] POST response includes a `Location` header with a full URL to `GET` the created fragment
+    - [x] trying to create a fragment with an unsupported type errors/logs as expected
 
 - [ ] Add appropriate **logging** to all of the code above. Make sure you include all of the following logs: `debug` logs (places where you need to get info about what's going on in order to debug a problem), `info` (places where regular operations are happening that you need to know about), `warn` (places where errors occur that you are handling), and `error` (places where an error is happening that you don't expect) logs.
 
