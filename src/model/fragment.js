@@ -215,8 +215,9 @@ class Fragment {
       // Start of 'text' types
       case 'plain':
         logger.info(`text/plain type detected`);
-        formats = ['text/plain'];
+        formats = ['.txt'];
         break;
+      /*
       case 'markdown':
         logger.info(`text/markdown type detected`);
         formats = ['.md', '.html', '.txt'];
@@ -247,6 +248,7 @@ class Fragment {
         logger.info(`image/png type detected`);
         formats = ['.png', '.jpg', '.webp', '.gif', '.avif'];
         break;
+      */
       default:
         logger.error(`Error: Unknown application type detected: ${this.type}`);
     }

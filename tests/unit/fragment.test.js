@@ -209,6 +209,8 @@ describe('Fragment class', () => {
       expect(Date.parse(fragment2.updated)).toBeGreaterThan(Date.parse(modified1));
     });
 
+    
+
     test("a fragment is added to the list of a user's fragments", async () => {
       const data = Buffer.from('hello');
       const ownerId = '5555';
@@ -253,5 +255,74 @@ describe('Fragment class', () => {
       await Fragment.delete('1234', fragment.id);
       expect(() => Fragment.byId('1234', fragment.id)).rejects.toThrow();
     });
+  });
+
+  describe('formats()', () => {
+    test('formats() returns the expected result for plain text', () => {
+      const fragment = new Fragment({
+        ownerId: '1234',
+        type: 'text/plain',
+        size: 0,
+      });
+      expect(fragment.formats).toEqual(['.txt']);
+    });
+    /*
+    test('formats() returns the expected result for markdown', () => {
+      const fragment = new Fragment({
+        ownerId: '1234',
+        type: 'text/markdown',
+        size: 0,
+      });
+      expect(fragment.formats).toEqual(['.md', '.html', '.txt']);
+    });
+
+    test('formats() returns the expected result for HTML', () => {
+      const fragment = new Fragment({
+        ownerId: '1234',
+        type: 'text/html',
+        size: 0,
+      });
+      expect(fragment.formats).toEqual(['.html', '.txt']);
+    });
+
+    test('formats() returns the expected result for CSV', () => {
+      const fragment = new Fragment({
+        ownerId: '1234',
+        type: 'text/csv',
+        size: 0,
+      });
+      expect(fragment.formats).toEqual(['.csv', '.txt', '.json']);
+    });
+
+    test('formats() returns the expected result for JSON', () => {
+      const fragment = new Fragment({
+        ownerId: '1234',
+        type: 'application/json',
+        size: 0,
+      });
+      expect(fragment.formats).toEqual(['.json', '.yaml', '.yml', '.txt']);
+    });
+
+    test('formats() returns the expected result for YAML', () => {
+      const fragment = new Fragment({
+        ownerId: '1234',
+        type: 'application/yaml',
+        size: 0,
+      });
+      expect(fragment.formats).toEqual(['.yaml', '.txt']);
+    });
+
+    test('formats() returns the expected result for image formats', () => {
+      const imageTypes = ['.png', '.jpg', '.webp', '.gif', '.avif'];
+      imageTypes.forEach((type) => {
+        const fragment = new Fragment({
+          ownerId: '1234',
+          type: type,
+          size: 0,
+        });
+        expect(fragment.formats).toEqual(['.png', '.jpg', '.webp', '.gif', '.avif']);
+      });
+    });
+    */
   });
 });
