@@ -54,8 +54,8 @@ Make sure you have implemented all of the hints, code, and tests below.
   - [x] Implement a `Fragment` class to use your Data Model and In-Memory database. See implementation outline in [src/model/fragment.js](src/model/fragment.js) and complete tests in [tests/unit/fragment.test.js](tests/unit/fragment.test.js). Write the code implementation necessary to get all these tests passing in CI. This is an example of **Test Driven Development (TDD)**.
 - [ ] Write a `POST /fragments` route with **unit tests** using your `Fragment` class:
 
-  - [ ] Parse the `Content-Type` header using the [content-type](https://www.npmjs.com/package/content-type) module, and error/log on unknown types.
-  - [ ] Use the built-in [Express' `raw` body parser](http://expressjs.com/en/api.html#express.raw) to get a `Buffer` (i.e., raw binary data). We won't use `body-parser` or `express.json()`). Here's a hint:
+  - [x] Parse the `Content-Type` header using the [content-type](https://www.npmjs.com/package/content-type) module, and error/log on unknown types.
+  - [x] Use the built-in [Express' `raw` body parser](http://expressjs.com/en/api.html#express.raw) to get a `Buffer` (i.e., raw binary data). We won't use `body-parser` or `express.json()`). Here's a hint:
 
     ```js
     // Support sending various Content-Types on the body up to 5M in size
@@ -77,8 +77,8 @@ Make sure you have implemented all of the hints, code, and tests below.
     router.post('/fragments', rawBody(), require('./post'));
     ```
 
-  - [ ] Add an **environment variable**, `API_URL`, to allow you to configure your fragment microservice's URL when setting the `Location` header URL (i.e., when running locally it would be `http://localhost:8080`, but it will be different on AWS). TIP: you can use [`req.headers.host`](https://stackoverflow.com/questions/6503331/how-to-check-the-host-using-expressjs) to get the current host name and use that to create a new `URL()` for setting the `Location` header when `API_URL` is missing from the environment.
-  - [ ] Make sure you support `text/plain` fragments
+  - [x] Add an **environment variable**, `API_URL`, to allow you to configure your fragment microservice's URL when setting the `Location` header URL (i.e., when running locally it would be `http://localhost:8080`, but it will be different on AWS). TIP: you can use [`req.headers.host`](https://stackoverflow.com/questions/6503331/how-to-check-the-host-using-expressjs) to get the current host name and use that to create a new `URL()` for setting the `Location` header when `API_URL` is missing from the environment.
+  - [x] Make sure you support `text/plain` fragments
   - [ ] Your unit tests should include test cases for everything in the spec. Some examples to consider:
     - [ ] authenticated vs unauthenticated requests (use HTTP Basic Auth, don't worry about Cognito in tests)
     - [ ] authenticated users can create a plain text fragment
