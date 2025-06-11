@@ -1,8 +1,8 @@
 // tests/unit/get.test.js
 
 const request = require('supertest');
-
 const app = require('../../src/app');
+const { Fragment } = require('../../src/model/fragment');
 
 describe('GET v1 fragments', () => {
   // If the request is missing the Authorization header, it should be forbidden
@@ -52,5 +52,19 @@ describe('GET v1 fragments', () => {
     expect(res.body.userFragments[1]).toHaveProperty('size');
     expect(res.body.userFragments[1]).toHaveProperty('created');
     expect(res.body.userFragments[1]).toHaveProperty('updated');
+  });
+
+  test('returns 500 if Fragment.byUser throws', async () => {
+    //  Mock Fragment.byUser to throw for this test only
+    jest.spyOn(Fragment, 'byUser').mockImplementation(() => {
+      throw new Error('error');
+    });
+    
+    const res = await request(app).get('/v1/fragments').auth('user1@email.com', 'password1');
+    expect(res.statusCode).toBe(500);
+    expect(res.body.status).toBe('error');
+
+    //  Restore the original implementation after the test
+    Fragment.byUser.mockRestore();
   });
 });

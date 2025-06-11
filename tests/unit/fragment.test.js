@@ -198,6 +198,12 @@ describe('Fragment class', () => {
       expect(Date.parse(fragment2.updated)).toBeGreaterThan(Date.parse(modified1));
     });
 
+    test('setData() throws if data is undefined', async () => {
+      const fragment = new Fragment({ ownerId: 'testuser', type: 'text/plain', size: 0 });
+      await fragment.save();
+      await expect(fragment.setData()).rejects.toThrow();
+    });
+
     test("a fragment is added to the list of a user's fragments", async () => {
       const data = Buffer.from('hello');
       const ownerId = '5555';

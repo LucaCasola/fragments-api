@@ -110,9 +110,7 @@ class Fragment {
     try {
       await writeFragment(this);
     } catch (error) {
-      logger.error(
-        `Failed to save fragment id: ${this.id} for user: ${this.ownerId}. Error: ${error.message}`
-      );
+      logger.error(`Failed to save fragment id: ${this.id} for user: ${this.ownerId}. Error: ${error.message}`);
       throw new Error(`Failed to save fragment: ${this.id}, ${error}`);
     }
   }
@@ -131,12 +129,12 @@ class Fragment {
    * @returns Promise<void>
    */
   async setData(data) {
-    if (data == undefined) {
-      throw new Error(`buffer is required, got buffer=${data}}`);
-    }
-    this.size = data.length;
-    await this.save()
     try {
+      if (data == undefined) {
+        throw new Error(`buffer is required, got buffer=${data}}`);
+      }
+      this.size = data.length;
+      await this.save()
       await writeFragmentData(this.ownerId, this.id, data);
     } catch (error) {
       logger.error(
