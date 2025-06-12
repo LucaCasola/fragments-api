@@ -21,10 +21,10 @@ module.exports = async (req, res) => {
       return res.status(415).json(createErrorResponse(415, `Unsupported Content-Type: ${type}`));
     }
 
-    // Validate that body is a Buffer
-    if (!Buffer.isBuffer(body)) {
-      logger.warn('Request body is not a buffer');
-      return res.status(400).json(createErrorResponse(400, 'Request body must be a buffer'));
+    // Validate that body is not empty and is a buffer
+    if (body === undefined || body === null || body.length === 0 || !Buffer.isBuffer(body)) {
+      logger.warn('Request body is empty');
+      return res.status(400).json(createErrorResponse(400, 'Request body must be a Buffer and must not be empty'));
     }
 
     const fragment = new Fragment({ ownerId: ownerId, type: type });
