@@ -10,11 +10,10 @@ module.exports = async (req, res) => {
 
   try {
     logger.info(`Fetching fragment: ${fragmentId}, for user: ${ownerId}`);
-
     const fragment = await Fragment.byId(ownerId, fragmentId);
-    const fragmentData = await fragment.getData();
 
     if (fragment.type == 'text/plain') {
+      const fragmentData = await fragment.getData();
       logger.info(`Fragment ${fragmentId} is of type text/plain, converting data to string`);
       return res.status(200).json(createSuccessResponse({ fragmentData: fragmentData.toString() }));
     } else {
