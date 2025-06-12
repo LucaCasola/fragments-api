@@ -20,23 +20,14 @@ describe('POST v1 fragments', () => {
     expect(res.body.error.message).toBe('content-type header is missing from object');
   });
 
-  test('contentType other than text/plain are not supported', async () => {
+  test('unsupported content headers are rejected', async () => {
     const res = await request(app).post('/v1/fragments')
-      .set('Content-Type', 'application/json')   // Send an invalid Content-Type header
-      .send({ num: 123 })  // Send an object as the request body
+      .set('Content-Type', 'invalid/type')   // Send an invalid Content-Type header
+      .send( '123' )  // Send a string as the request body
       .auth('user1@email.com', 'password1')  // Send valid credentials
 
     expect(res.statusCode).toBe(415);
-    expect(res.body.error.message).toBe('Unsupported Content-Type: application/json');
-  });
-
-  test('contentType automatically set as other than text/plain are not supported', async () => {
-    const res = await request(app).post('/v1/fragments')
-      .send({ num: 123 })  // Send an object (invalid) as the request body
-      .auth('user1@email.com', 'password1')  // Send valid credentials
-
-    expect(res.statusCode).toBe(415);
-    expect(res.body.error.message).toBe('Unsupported Content-Type: application/json');
+    expect(res.body.error.message).toBe('Unsupported Content-Type: invalid/type');
   });
 
   test('empty request body is rejected', async () => {
