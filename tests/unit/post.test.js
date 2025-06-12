@@ -2,6 +2,7 @@
 
 const request = require('supertest');
 const app = require('../../src/app');
+const { Fragment } = require('../../src/model/fragment');
 
 describe('POST v1 fragments', () => {
   test('unauthenticated requests are denied', async () => {
@@ -36,6 +37,32 @@ describe('POST v1 fragments', () => {
 
     expect(res.statusCode).toBe(415);
     expect(res.body.error.message).toBe('Unsupported Content-Type: application/json');
+  });
+
+  test('empty request body is rejected', async () => {
+    const res = await request(app).post('/v1/fragments')
+      .set('Content-Type', 'text/plain')  // Set a valid Content-Type header
+      .auth('user1@email.com', 'password1')  // Send valid credentials
+
+    expect(res.statusCode).toBe(400);
+    expect(res.body.error.message).toBe('Request body must be a Buffer and must not be empty');
+  });
+
+  test('returns 500 if anything throws', async () => {
+    //  Mock Fragment.byUser to throw for this test only
+    jest.spyOn(Fragment.prototype, 'save').mockImplementation(() => {
+      throw new Error('error');
+    });
+    
+    const res = await request(app).post('/v1/fragments')
+      .set('Content-Type', 'text/plain')  // Set a valid Content-Type header
+      .send(Buffer.from('test fragment data'))  // Send a valid Buffer as the request body
+      .auth('user1@email.com', 'password1');  // Send valid credentials
+    expect(res.statusCode).toBe(500);
+    expect(res.body.status).toBe('error');
+
+    //  Restore the original implementation after the test
+    Fragment.prototype.save.mockRestore();
   });
 
   test('authenticated users can create a plain text fragment and response includes all expected properties', async () => {
