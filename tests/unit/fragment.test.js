@@ -6,9 +6,6 @@ const wait = async (ms = 50) => new Promise((resolve) => setTimeout(resolve, ms)
 
 const validTypes = [
   `text/plain`,
-  /*
-   Currently, only text/plain is supported. Others will be added later.
-
   `text/markdown`,
   `text/html`,
   `application/json`,
@@ -16,14 +13,9 @@ const validTypes = [
   `image/jpeg`,
   `image/webp`,
   `image/gif`,
-  */
 ];
 
 describe('Fragment class', () => {
-  test('common formats are supported', () => {
-    validTypes.forEach((format) => expect(Fragment.isSupportedType(format)).toBe(true));
-  });
-
   describe('Fragment()', () => {
     test('ownerId and type are required', () => {
       expect(() => new Fragment({})).toThrow();
@@ -51,6 +43,17 @@ describe('Fragment class', () => {
       expect(fragment.type).toEqual('text/plain; charset=utf-8');
     });
 
+    test('invalid types throw', () => {
+      expect(() => new Fragment({ ownerId: '1234', type: 'application/msword', size: 1 })).toThrow();
+    });
+
+    test('valid types can be set', () => {
+      validTypes.forEach((format) => {
+        const fragment = new Fragment({ ownerId: '1234', type: format, size: 1 });
+        expect(fragment.type).toEqual(format);
+      });
+    });
+
     test('size gets set to 0 if missing', () => {
       const fragment = new Fragment({ ownerId: '1234', type: 'text/plain' });
       expect(fragment.size).toBe(0);
@@ -68,21 +71,12 @@ describe('Fragment class', () => {
       expect(() => new Fragment({ ownerId: '1234', type: 'text/plain', size: -1 })).toThrow();
     });
 
-    test('invalid types throw', () => {
-      expect(
-        () => new Fragment({ ownerId: '1234', type: 'application/msword', size: 1 })
-      ).toThrow();
-    });
-
-    test('valid types can be set', () => {
-      validTypes.forEach((format) => {
-        const fragment = new Fragment({ ownerId: '1234', type: format, size: 1 });
-        expect(fragment.type).toEqual(format);
-      });
-    });
-
     test('fragments have an id', () => {
-      const fragment = new Fragment({ ownerId: '1234', type: 'text/plain', size: 1 });
+      const fragment = new Fragment({ 
+        ownerId: '1234', 
+        type: 'text/plain', 
+        size: 1 
+      });
       expect(fragment.id).toMatch(
         /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/
       );
@@ -118,37 +112,47 @@ describe('Fragment class', () => {
   });
 
   describe('isSupportedType()', () => {
-    test('common text types are supported, with and without charset', () => {
+    test('isSupportedType() returns true for supported text types, with and without charset', () => {
       expect(Fragment.isSupportedType('text/plain')).toBe(true);
       expect(Fragment.isSupportedType('text/plain; charset=utf-8')).toBe(true);
     });
 
-    test('other types are not supported', () => {
+    test('isSupportedType() returns false for unsupported types', () => {
       expect(Fragment.isSupportedType('application/octet-stream')).toBe(false);
       expect(Fragment.isSupportedType('application/msword')).toBe(false);
       expect(Fragment.isSupportedType('audio/webm')).toBe(false);
       expect(Fragment.isSupportedType('video/ogg')).toBe(false);
     });
+
+    test('isSupportedType() returns false if content-type parsing fails', () => {
+      const invalidType = 'not a valid content type';  // Pass an invalid content-type string to force parse to throw
+      const result = Fragment.isSupportedType(invalidType);
+      expect(result).toBe(false);
+    });
   });
 
-  describe('mimeType, isText', () => {
-    test('mimeType returns the mime type without charset', () => {
+  describe('mimeType()', () => {
+    test('mimeType() returns the mime type for type with parameter', () => {
       const fragment = new Fragment({
         ownerId: '1234',
         type: 'text/plain; charset=utf-8',
         size: 0,
       });
-      expect(fragment.type).toEqual('text/plain; charset=utf-8');
       expect(fragment.mimeType).toEqual('text/plain');
     });
 
-    test('mimeType returns the mime type if charset is missing', () => {
-      const fragment = new Fragment({ ownerId: '1234', type: 'text/plain', size: 0 });
-      expect(fragment.type).toEqual('text/plain');
+    test('mimeType() returns the mime type for type without parameters', () => {
+      const fragment = new Fragment({ 
+        ownerId: '1234', 
+        type: 'text/plain', 
+      size: 0 
+      });
       expect(fragment.mimeType).toEqual('text/plain');
     });
+  });
 
-    test('isText return expected results', () => {
+  describe('isText(), isApplication(), isImage(), subtype()', () => {
+    test('isText() returns true for text fragments', () => {
       // Text fragment
       const fragment = new Fragment({
         ownerId: '1234',
@@ -156,6 +160,98 @@ describe('Fragment class', () => {
         size: 0,
       });
       expect(fragment.isText).toBe(true);
+    });
+
+    test('isText() returns false for non-text fragments', () => {
+      // Non-text fragment
+      const fragment = new Fragment({
+        ownerId: '1234',
+        type: 'image/png',
+        size: 0,
+      });
+      expect(fragment.isText).toBe(false);
+    });
+
+    test('isApplication() returns true for application fragments', () => {
+      // Application fragment
+      const fragment = new Fragment({
+        ownerId: '1234',
+        type: 'application/json',
+        size: 0,  
+      });
+      expect(fragment.isApplication).toBe(true);  
+    });
+
+    test('isApplication() returns false for non-application fragments', () => {
+      // Non-application fragment
+      const fragment = new Fragment({
+        ownerId: '1234',
+        type: 'text/plain',
+        size: 0,
+      });
+      expect(fragment.isApplication).toBe(false);
+    });
+
+    test('isImage() returns true for image fragments', () => {
+      // Image fragment
+      const fragment = new Fragment({
+        ownerId: '1234',
+        type: 'image/png',
+        size: 0,
+      });
+      expect(fragment.isImage).toBe(true);
+    });
+
+    test('isImage() returns false for non-image fragments', () => {
+      // Non-image fragment
+      const fragment = new Fragment({
+        ownerId: '1234',
+        type: 'text/plain; charset=utf-8',
+        size: 0,
+      });
+      expect(fragment.isImage).toBe(false);
+    });
+
+    test('subtype() returns the correct subtype for text fragments', () => {
+      const fragment = new Fragment({
+        ownerId: '1234',
+        type: 'text/plain; charset=utf-8',
+        size: 0,
+      });
+      expect(fragment.subtype).toEqual('plain');
+    });
+
+    test('subtype() returns the correct subtype for application fragments', () => {
+      const fragment = new Fragment({
+        ownerId: '1234',
+        type: 'application/json',
+        size: 0,
+      });
+      expect(fragment.subtype).toEqual('json');
+    });
+
+    test('subtype() returns the correct subtype for image fragments', () => {
+      const fragment = new Fragment({
+        ownerId: '1234',
+        type: 'image/png',
+        size: 0,
+      });
+      expect(fragment.subtype).toEqual('png');
+    });
+
+    test('subtype() returns undefined subtype for unknown fragments', () => {
+      // Mock isSupportedType to always return true to simulate an unsupported type
+      jest.spyOn(Fragment, 'isSupportedType').mockReturnValue(true);
+      
+      const fragment = new Fragment({
+        ownerId: '1234',
+        type: 'invalid/type',
+        size: 0,
+      });
+      expect(fragment.subtype).toBe(undefined);
+
+      // Restore the original implementation after the test
+      Fragment.isSupportedType.mockRestore();
     });
   });
 
@@ -259,7 +355,7 @@ describe('Fragment class', () => {
       });
       expect(fragment.formats).toEqual(['text/plain']);
     });
-    /* TODO: Uncomment when other formats are supported
+
     test('formats() returns the expected result for markdown', () => {
       const fragment = new Fragment({
         ownerId: '1234',
@@ -306,16 +402,27 @@ describe('Fragment class', () => {
     });
 
     test('formats() returns the expected result for image formats', () => {
-      const imageTypes = ['.png', '.jpg', '.webp', '.gif', '.avif'];
+      const imageTypes = ['image/png', 'image/jpeg', 'image/webp', 'image/gif', 'image/avif'];
       imageTypes.forEach((type) => {
         const fragment = new Fragment({
           ownerId: '1234',
           type: type,
           size: 0,
         });
-        expect(fragment.formats).toEqual(['image/png', 'image/jpg', 'image/webp', 'image/gif', 'image/avif']);
+        expect(fragment.formats).toEqual(['image/png', 'image/jpeg', 'image/webp', 'image/gif', 'image/avif']);
       });
     });
-    */
+
+    test('formats() returns an empty array for unsupported types', () => {
+      // Mock isSupportedType to always return true to simulate an unsupported type
+      jest.spyOn(Fragment, 'isSupportedType').mockReturnValue(true);
+
+      const fragment = new Fragment({
+        ownerId: '1234',
+        type: 'application/msword',
+        size: 0,
+      });
+      expect(fragment.formats).toEqual([]);
+    });
   });
 });

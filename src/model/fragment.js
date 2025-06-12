@@ -20,18 +20,16 @@ const {
 // Valid types for type member of Fragment class
 const validTypes = [
   `text/plain`,
-  /* TODO: Uncomment when other formats are supported
   `text/markdown`,
   `text/html`,
-  `text/csv`, ?
+  `text/csv`,
   `application/json`,
-  `application/yaml`,?
+  `application/yaml`,
   `image/png`,
   `image/jpeg`,
   `image/webp`,
-  `image/avif`, ?
+  `image/avif`,
   `image/gif`,
-  */
 ];
 
 class Fragment {
@@ -61,7 +59,7 @@ class Fragment {
     this.type = type;
     this.size = size;
 
-    // Ensure type is valid (TODO: add to this later when additional types are added)
+    // Ensure type is valid
     if (!Fragment.isSupportedType(type)) {
       throw new Error(`type is not valid, got type=${type}`);
     }
@@ -173,31 +171,31 @@ class Fragment {
   }
 
   /**
-   * Returns the subtype for the fragment's type
-   * @returns {string} subtype of the fragment's type/*
-   */
-  get subtype() {
-    let primaryType = String(this.mimeType);
-    let subtype = "";
-
-    if (this.isText) {
-      subtype = primaryType.slice(5);  // should equal one of:  plain, markdown, html, or csv
-    } else if (this.isImage) {
-      subtype = primaryType.slice(12);  // should equal one of:  json or yaml
-    } else if (this.isApplication) {
-      subtype = primaryType.slice(6);  // should equal one of:  png, jpeg, webp, avif, or gif
-    } 
-
-    return subtype;
-  }
-
-  /**
    * Returns true if this fragment is an application/* mime type
    * @returns {boolean} true if fragment's type is application/*
    */
   get isApplication() {
     const typeFirstTwelveChars = this.type.slice(0, 12);
     return typeFirstTwelveChars == 'application/';
+  }
+
+  /**
+   * Returns the subtype for the fragment's type
+   * @returns {string} subtype of the fragment's type/*
+   */
+  get subtype() {
+    let primaryType = String(this.mimeType);
+    let subtype = undefined;
+
+    if (this.isText) {
+      subtype = primaryType.slice(5);  // should equal one of:  plain, markdown, html, or csv
+    } else if (this.isApplication) {
+      subtype = primaryType.slice(12);  // should equal one of:  json or yaml
+    } else if (this.isImage) {
+      subtype = primaryType.slice(6);  // should equal one of:  png, jpeg, webp, avif, or gif
+    } 
+
+    return subtype;
   }
 
   /**
@@ -213,7 +211,6 @@ class Fragment {
         logger.info(`text/plain type detected`);
         formats = ['text/plain'];
         break;
-      /* TODO: Uncomment when other formats are supported
       case 'markdown':
         logger.info(`text/markdown type detected`);
         formats = ['text/markdown', 'text/html', 'text/plain'];
@@ -242,9 +239,8 @@ class Fragment {
       case 'avif':
       case 'gif':
         logger.info(`image/png type detected`);
-        formats = ['image/png', 'image/jpg', 'image/webp', 'image/gif', 'image/avif'];
+        formats = ['image/png', 'image/jpeg', 'image/webp', 'image/gif', 'image/avif'];
         break;
-      */
       default:
         logger.error(`Error: Unknown application type detected: ${this.type}`);
     }
@@ -258,7 +254,7 @@ class Fragment {
    * @returns {boolean} true if we support this Content-Type (i.e., type/subtype)
    */
   static isSupportedType(value) {
-  let isSupported = false;
+    let isSupported = false;
     let mimeType = value;
 
     // Try to parse out the MIME type if there are parameters
