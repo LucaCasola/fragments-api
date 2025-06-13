@@ -1,4 +1,7 @@
 const MemoryDB = require('./memory-db');
+/**
+ * @typedef {import('../../fragment').Fragment} Fragment
+ */
 
 // Create two in-memory databases: one for fragment metadata and the other for raw data
 const data = new MemoryDB();
@@ -7,7 +10,7 @@ const metadata = new MemoryDB();
 
 /**
  * Write a fragment's metadata to memory db
- * @param {any} fragment         //TODO: change Type to Fragment when class is implemented
+ * @param {Fragment} fragment
  * @returns {Promise<void>}
  */
 function writeFragment(fragment) {
