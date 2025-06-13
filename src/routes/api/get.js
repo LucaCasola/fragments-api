@@ -1,8 +1,10 @@
 // src/routes/api/get.js
 
-const { createSuccessResponse, createErrorResponse } = require('../../response');  // Used to create a success response object in HTTP responses
 const logger = require('../../logger');
 const { Fragment } = require('../../model/fragment');
+
+// Used to create a success response object in HTTP responses
+const { createSuccessResponse, createErrorResponse } = require('../../response');
 
 // Get a list of fragments for the current user
 module.exports = async (req, res) => {

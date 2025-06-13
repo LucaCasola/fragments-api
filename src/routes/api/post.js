@@ -1,10 +1,12 @@
 // src/routes/api/post.js
+
 const logger = require('../../logger');
 const { Fragment } = require('../../model/fragment');
-const { createSuccessResponse, createErrorResponse } = require('../../response');  // Used to create a success response object in HTTP responses
 
+// Used to create a success response object in HTTP responses
+const { createSuccessResponse, createErrorResponse } = require('../../response'); 
 
-// Add a fragment to the user
+// Add a fragment for the current user
 module.exports = async (req, res) => {
   try {
     const ownerId = req.user;

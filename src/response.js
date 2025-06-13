@@ -1,14 +1,13 @@
 // src/response.js
 
-module.exports.createSuccessResponse = function (data) {
+function createSuccessResponse(data) {
   return {
     status: 'ok',
     ...data,
   };
 };
 
-
-module.exports.createErrorResponse = function (code, message) {
+function createErrorResponse(code, message) {
   return {
     status: 'error',
     error: {
@@ -17,3 +16,6 @@ module.exports.createErrorResponse = function (code, message) {
     }
   }
 };
+
+module.exports.createErrorResponse = createErrorResponse;
+module.exports.createSuccessResponse = createSuccessResponse;

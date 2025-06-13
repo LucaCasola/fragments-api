@@ -1,9 +1,12 @@
 // src/routes/api/get-id.js
 
-const { createSuccessResponse, createErrorResponse } = require('../../response');  // Used to create a success response object in HTTP responses
 const logger = require('../../logger');
 const { Fragment } = require('../../model/fragment');
 
+// Used to create a success response object in HTTP responses
+const { createSuccessResponse, createErrorResponse } = require('../../response');
+
+// Get a specific fragment by ID for the current user
 module.exports = async (req, res) => {
   const fragmentId = req.params.id;
   const ownerId = req.user;
