@@ -18,14 +18,15 @@ describe('GET v1 fragment by ID', () => {
   // Using a valid username/password pair should give a success result with a fragment's data
   test(`authenticated user get a fragment's data`, async () => {
     // First, create a fragment to retrieve
-    await request(app).post('/v1/fragments')
+    const res = await request(app).post('/v1/fragments')
       .set('Content-Type', 'text/plain')  // Set a valid Content-Type header
       .send(Buffer.from('11111'))  // Send a valid Buffer as the request body
       .auth('user1@email.com', 'password1');  // Send valid credentials
+    expect(res.statusCode).toBe(201);
 
     // Now, retrieve the fragment's ID
     const res1 = await request(app).get('/v1/fragments').auth('user1@email.com', 'password1');
-    const fragmentId = res1.body.userFragments[0].id;
+    const fragmentId = res1.body.userFragments[0]
     
     // Now, retrieve the fragment data by its ID
     const res2 = await request(app).get(`/v1/fragments/${fragmentId}`).auth('user1@email.com', 'password1');

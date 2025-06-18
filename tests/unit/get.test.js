@@ -34,7 +34,7 @@ describe('GET v1 fragments', () => {
       .send(Buffer.from('22222'))  // Send a valid Buffer as the request body
       .auth('user1@email.com', 'password1');  // Send valid credentials
 
-    const res = await request(app).get('/v1/fragments').auth('user1@email.com', 'password1');
+    const res = await request(app).get('/v1/fragments?expanded=1').auth('user1@email.com', 'password1');
     expect(res.statusCode).toBe(200);
     expect(res.body.status).toBe('ok');
     expect(Array.isArray(res.body.userFragments)).toBe(true);
