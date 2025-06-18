@@ -12,7 +12,7 @@ Make sure that all of [Assignment 1](../assignment-01/README.md), plus all of th
 - [ ] [Docker Hub](https://hub.docker.com/) account secrets properly stored in GitHub repo
 - [ ] `fragments` Docker image automatically built and pushed to [Docker Hub](https://hub.docker.com/) on every new commit to the `main` branch via GitHub Actions CI workflow
 - [x] `POST /fragments` can now create any `text/*` or `application/json` fragments (i.e., you don't need to support images until [Assignment 3](../assignment-03/README.md)), with unit tests. See 4.3.
-- [ ] `GET /fragments?expand=1` now returns expanded fragment metadata for an authenticated user. See 4.4.1.
+- [x] `GET /fragments?expand=1` now returns expanded fragment metadata for an authenticated user. See 4.4.1.
 - [ ] `GET /fragments/:id` returns an existing fragment's data with the expected `Content-Type`, with unit tests. See 4.5.
 - [ ] `GET /fragments/:id/info` returns an existing fragment's metadata, with unit tests. See 4.7.
 - [ ] `GET /fragments/:id.ext` returns an existing fragment's data converted to a supported type. Initially, you only need to support Markdown fragments (`.md`) converted to HTML (`.html`) using [markdown-it](https://github.com/markdown-it/markdown-it) (i.e., you don't have to do other conversions until [Assignment 3](../assignment-03/README.md))
