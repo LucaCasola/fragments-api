@@ -5,11 +5,11 @@ Make sure that all of [Assignment 1](../assignment-01/README.md), plus all of th
 ## API Server Checklist
 
 - [ ] Clean, properly formatted code with proper logging and comments
-- [ ] `Dockerfile` and `.dockerignore` added to `fragments` GitHub repo
-- [ ] `Dockerfile` employs [Docker best practices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/) for creating Docker Images
+- [x] `Dockerfile` and `.dockerignore` added to `fragments` GitHub repo
+- [x] `Dockerfile` employs [Docker best practices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/) for creating Docker Images
 - [ ] `Dockerfile` uses a multi-stage Docker Build produces, producing the smallest possible production Docker Image of your `fragments` node server
-- [ ] `fragments` Docker image is hosted as a public repository at [Docker Hub](https://hub.docker.com/) under your account
-- [Docker Hub](https://hub.docker.com/) account secrets properly stored in GitHub repo
+- [x] `fragments` Docker image is hosted as a public repository at [Docker Hub](https://hub.docker.com/) under your account
+- [ ] [Docker Hub](https://hub.docker.com/) account secrets properly stored in GitHub repo
 - [ ] `fragments` Docker image automatically built and pushed to [Docker Hub](https://hub.docker.com/) on every new commit to the `main` branch via GitHub Actions CI workflow
 - [ ] `POST /fragments` can now create any `text/*` or `application/json` fragments (i.e., you don't need to support images until [Assignment 3](../assignment-03/README.md)), with unit tests. See 4.3.
 - [ ] `GET /fragments?expand=1` now returns expanded fragment metadata for an authenticated user. See 4.4.1.
@@ -17,7 +17,7 @@ Make sure that all of [Assignment 1](../assignment-01/README.md), plus all of th
 - [ ] `GET /fragments/:id/info` returns an existing fragment's metadata, with unit tests. See 4.7.
 - [ ] `GET /fragments/:id.ext` returns an existing fragment's data converted to a supported type. Initially, you only need to support Markdown fragments (`.md`) converted to HTML (`.html`) using [markdown-it](https://github.com/markdown-it/markdown-it) (i.e., you don't have to do other conversions until [Assignment 3](../assignment-03/README.md))
 - [ ] Unit test coverage should be at 80% or above, targeting all expected source files
-- [ ] `fragments` Docker container is running manually on EC2 using pre-built [Docker Hub](https://hub.docker.com/) image (i.e., without building manually on EC2)
+- [x] `fragments` Docker container is running manually on EC2 using pre-built [Docker Hub](https://hub.docker.com/) image (i.e., without building manually on EC2)
 
 ## Front-End Web Testing UI Checklist
 
@@ -42,9 +42,9 @@ Create a proper Technical Report document (e.g., Word or PDF) and submit it to B
 Your Technical Report document will discuss and demonstrate your progress to date on implementing the `fragments` service. In your report, include all of the following sections and items:
 
 1. [ ] An introduction that describes the updates to the system since Assignment 1
-2. [ ] Links to both Private GitHub Repos with all necessary files included in git
+2. [x] Links to both Private GitHub Repos with all necessary files included in git
 3. [ ] Links to both your public Docker Hub repositories with your built Docker Images
-4. [ ] Link to a successful GitHub Actions CI workflow running your unit tests
+4. [x] Link to a successful GitHub Actions CI workflow running your unit tests
 5. [ ] Screenshots of your `fragments` API server running as a container on EC2 based on your Docker Hub image. Make sure you show and label the health heck JSON response in the browser or via `curl`.
 6. [ ] Screenshots of your `fragments-ui` web app running on localhost and connecting to your Docker Container running on EC2 and your Amazon Cognito User Pool, doing the following:
    1. [ ] User authenticating with Cognito Hosted UI and showing the metadata for all of their existing fragments
