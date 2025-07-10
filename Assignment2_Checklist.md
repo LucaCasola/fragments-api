@@ -35,15 +35,15 @@ The web UI does not need to be polished or pretty, but must be functional, even 
 
 Create a proper Technical Report document (e.g., Word or PDF) and submit it to Blackboard. Your Technical Report must include:
 
-- [ ] a title page
-- [ ] proper headings, sections, and page numbers
+- [x] a title page
+- [x] proper headings, sections, and page numbers
 - [ ] figures with labels (e.g., screenshots must include explanatory text)
 
 Your Technical Report document will discuss and demonstrate your progress to date on implementing the `fragments` service. In your report, include all of the following sections and items:
 
 1. [ ] An introduction that describes the updates to the system since Assignment 1
 2. [x] Links to both Private GitHub Repos with all necessary files included in git
-3. [ ] Links to both your public Docker Hub repositories with your built Docker Images
+3. [x] Links to both your public Docker Hub repositories with your built Docker Images
 4. [x] Link to a successful GitHub Actions CI workflow running your unit tests
 5. [ ] Screenshots of your `fragments` API server running as a container on EC2 based on your Docker Hub image. Make sure you show and label the health heck JSON response in the browser or via `curl`.
 6. [ ] Screenshots of your `fragments-ui` web app running on localhost and connecting to your Docker Container running on EC2 and your Amazon Cognito User Pool, doing the following:
