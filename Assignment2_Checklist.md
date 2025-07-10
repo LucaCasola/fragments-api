@@ -23,11 +23,11 @@ Make sure that all of [Assignment 1](../assignment-01/README.md), plus all of th
 
 The web UI does not need to be polished or pretty, but must be functional, even if only in a very basic way. Remember, this is only for manual testing.
 
-- [ ] `Dockerfile` and `.dockerignore` added to `fragments-ui` GitHub repo
-- [ ] `Dockerfile` employs [Docker best practices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/) for creating Docker Images
-- [ ] `Dockerfile` uses a multi-stage Docker Build produces the smallest possible production Docker Image
+- [x] `Dockerfile` and `.dockerignore` added to `fragments-ui` GitHub repo
+- [x] `Dockerfile` employs [Docker best practices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/) for creating Docker Images
+- [x] `Dockerfile` uses a multi-stage Docker Build produces the smallest possible production Docker Image
 - [ ] Final layer uses `nginx` to serve the final static web site vs. node.js
-- [ ] `fragments-ui` Docker image hosted as a public repository at [Docker Hub](https://hub.docker.com/) under your account. NOTE: you don't need to automate this, pushing it manually is fine (you're obviously welcome to automate it if you want to).
+- [x] `fragments-ui` Docker image hosted as a public repository at [Docker Hub](https://hub.docker.com/) under your account. NOTE: you don't need to automate this, pushing it manually is fine (you're obviously welcome to automate it if you want to).
 - [ ] Basic support for users to create a new fragment, specifying the type of the fragment (e.g., drop-down or textbox). Any text (`text/*`) or JSON `application/json` fragment type should work. You could have the user type the fragment's content into a simple textbox, or support [drag-and-drop](https://www.npmjs.com/package/drag-drop), or use some of the many [browser file APIs](https://patrickbrosset.com/articles/2021-10-22-handling-files-on-the-web/). It's up to you, but there needs to be some way to accomplish this. NOTE: this doesn't need to be fancy or highly polished; this is only for manual testing.
 - [ ] Ability to get a list of the authenticated user's existing fragments with all metadata after successful login. It's up to you what you do, but there needs to be some way to accomplish this.
 
