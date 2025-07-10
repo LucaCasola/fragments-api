@@ -4,13 +4,13 @@ Make sure that all of [Assignment 1](../assignment-01/README.md), plus all of th
 
 ## API Server Checklist
 
-- [ ] Clean, properly formatted code with proper logging and comments
+- [x] Clean, properly formatted code with proper logging and comments
 - [x] `Dockerfile` and `.dockerignore` added to `fragments` GitHub repo
 - [x] `Dockerfile` employs [Docker best practices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/) for creating Docker Images
-- [ ] `Dockerfile` uses a multi-stage Docker Build produces, producing the smallest possible production Docker Image of your `fragments` node server
+- [x] `Dockerfile` uses a multi-stage Docker Build produces, producing the smallest possible production Docker Image of your `fragments` node server
 - [x] `fragments` Docker image is hosted as a public repository at [Docker Hub](https://hub.docker.com/) under your account
-- [ ] [Docker Hub](https://hub.docker.com/) account secrets properly stored in GitHub repo
-- [ ] `fragments` Docker image automatically built and pushed to [Docker Hub](https://hub.docker.com/) on every new commit to the `main` branch via GitHub Actions CI workflow
+- [x] [Docker Hub](https://hub.docker.com/) account secrets properly stored in GitHub repo
+- [x] `fragments` Docker image automatically built and pushed to [Docker Hub](https://hub.docker.com/) on every new commit to the `main` branch via GitHub Actions CI workflow
 - [x] `POST /fragments` can now create any `text/*` or `application/json` fragments (i.e., you don't need to support images until [Assignment 3](../assignment-03/README.md)), with unit tests. See 4.3.
 - [x] `GET /fragments?expand=1` now returns expanded fragment metadata for an authenticated user. See 4.4.1.
 - [ ] `GET /fragments/:id` returns an existing fragment's data with the expected `Content-Type`, with unit tests. See 4.5.
