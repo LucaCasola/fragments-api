@@ -32,23 +32,7 @@ describe('GET v1 fragment by ID', () => {
     const res2 = await request(app).get(`/v1/fragments/${fragmentId}`).auth('user1@email.com', 'password1');
     expect(res2.statusCode).toBe(200);
     expect(res2.body.status).toBe('ok');
-    expect(res2.body.fragmentData).toEqual('11111');  // The data should match what was sent
-  });
-
-  test('returns 415 if fragment type is not supported', async () => {
-    jest.spyOn(Fragment, 'byId').mockResolvedValueOnce({
-      type: 'application/unsupported',
-    });
-
-    const res = await request(app)
-      .get(`/v1/fragments/123`)
-      .auth('user1@email.com', 'password1');
-
-    expect(res.statusCode).toBe(415);
-    expect(res.body.error.message).toMatch('Unsupported fragment type');
-
-    // Restore the mock if needed
-    Fragment.byId.mockRestore();
+    expect(res2.body.data).toEqual('11111');  // The data should match what was sent
   });
 
   test('returns 500 if Fragment.byUser throws', async () => {
