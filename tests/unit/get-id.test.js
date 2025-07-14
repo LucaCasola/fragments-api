@@ -35,6 +35,30 @@ describe('GET v1 fragment by ID', () => {
     expect(res2.body.data).toEqual('11111');  // The data should match what was sent
   });
 
+  // Using a valid username/password and valid fragment ID ending with .html
+  // should return the fragment's markdown data converted to html
+  test(`authenticated user get a fragment's data with supported extension`, async () => {
+    const markdown = `## Lorem Header
+
+adipisicing elit, sed do eiusmod`;
+
+    // First, create a fragment to retrieve
+    const res = await request(app).post('/v1/fragments')
+      .set('Content-Type', 'text/markdown')  // Set a valid Content-Type header
+      .send(Buffer.from(markdown))  // Send a valid Buffer as the request body
+      .auth('user1@email.com', 'password1');  // Send valid credentials
+    expect(res.statusCode).toBe(201);
+
+    // Now, retrieve the fragment's ID
+    const res1 = await request(app).get('/v1/fragments').auth('user1@email.com', 'password1');
+    const fragmentId = res1.body.userFragments[1]
+
+    // Now, retrieve the fragment data converted from md to HTML by its ID
+    const res2 = await request(app).get(`/v1/fragments/${fragmentId}.html`).auth('user1@email.com', 'password1');
+    expect(res2.statusCode).toBe(200);
+    expect(res2.text.trim()).toEqual(`<h2>Lorem Header</h2>\n<p>adipisicing elit, sed do eiusmod</p>`);  // The data should match what was sent but converted to HTML
+  });
+
   test('returns 500 if Fragment.byUser throws', async () => {
     //  Mock Fragment.byUser to throw for this test only
     jest.spyOn(Fragment, 'byUser').mockImplementation(() => {
