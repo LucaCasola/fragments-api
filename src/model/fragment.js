@@ -279,3 +279,5 @@ class Fragment {
 }
 
 module.exports.Fragment = Fragment;
+
+module.exports.validTypes = validTypes;
