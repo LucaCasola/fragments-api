@@ -4,7 +4,7 @@ const logger = require('../../logger');
 const { Fragment, validTypes } = require('../../model/fragment');
 
 // Used to create a success response object in HTTP responses
-const { createSuccessResponse, createErrorResponse } = require('../../response');
+const { createErrorResponse } = require('../../response');
 
 const MarkdownIt = require('markdown-it');
 
@@ -42,16 +42,18 @@ module.exports = async (req, res) => {
     const fragment = await Fragment.byId(ownerId, fragmentId);
 
     // If no file extension is specified or file extension is the same, return the fragment data as is
-    if (!format || format === fragment.type) {
+    if (!format || format === fragment.mimeType) {
       logger.info(`No conversion necessary, returning fragment data as is`);
       const fragmentData = await fragment.getData();
-      return res.status(200).json(createSuccessResponse({ type: fragment.type, data: fragmentData.toString() }));
+      res.set('Content-Type', fragment.mimeType);
+      res.set('Content-Length', fragment.size);
+      return res.status(200).send(fragmentData.toString());
     } 
-    // If the requested file extension is a supported conversion for the requested fragmement, convert to that format and return
+    // If the requested format is a supported conversion for the requested fragment
     else if (fragment.formats.includes(format)) {
       const fragmentData = await fragment.getData();
       
-      // If the fragment is markdown and the requested file extension is HTML, convert it to HTML
+      // Markdown to HTML conversion
       if (fragment.type == 'text/markdown' && format === 'text/html') {
         logger.info(`Converting fragment's markdown data to HTML`);
         const htmlData = await convertMarkdownToHtml(fragmentData.toString());
@@ -59,11 +61,9 @@ module.exports = async (req, res) => {
         res.set('Content-Length', Buffer.byteLength(htmlData));
         return res.status(200).send(htmlData);
       }
-    } 
-    // If the file extension is not supported, return an error
-    else {
-      logger.warn(`Unsupported file extension: ${format} for fragmentId: ${fragmentId} with type: ${fragment.type}`);
-      return res.status(415).json(createErrorResponse(415, `Unsupported file extension: ${format} for fragmentId: ${fragmentId} with type: ${fragment.type}`));
+    } else {
+      logger.warn(`Unsupported format requested: ${format} for fragment ID: ${fragmentId}`);
+      return res.status(400).json(createErrorResponse(400, `Unsupported format requested: ${format}`));
     }
   } catch (err) {
     logger.error(`Error fetching fragment ${fragmentId}: ${err.message}`);

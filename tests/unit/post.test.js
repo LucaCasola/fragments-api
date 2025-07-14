@@ -64,12 +64,12 @@ describe('POST v1 fragments', () => {
 
     expect(res.statusCode).toBe(201);
     expect(res.body.status).toBe('ok');
-    expect(res.body).toHaveProperty('id');
-    expect(res.body).toHaveProperty('ownerId');
-    expect(res.body).toHaveProperty('type');
-    expect(res.body).toHaveProperty('size');
-    expect(res.body).toHaveProperty('created');
-    expect(res.body).toHaveProperty('updated');
+    expect(res.body).toHaveProperty('fragment.id');
+    expect(res.body).toHaveProperty('fragment.ownerId');
+    expect(res.body).toHaveProperty('fragment.type');
+    expect(res.body).toHaveProperty('fragment.size');
+    expect(res.body).toHaveProperty('fragment.created');
+    expect(res.body).toHaveProperty('fragment.updated');
   });
 
   test('authenticated users receive a Location header with a full URL to get the created fragment', async () => {

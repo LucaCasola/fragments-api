@@ -38,7 +38,7 @@ module.exports = async (req, res) => {
     const location = `${baseUrl}/v1/fragments/${fragment.id}`;
     res.setHeader('Location', location);
 
-    res.status(201).json(createSuccessResponse(fragment));
+    res.status(201).json(createSuccessResponse({ fragment }));
   } catch (error) {
     res.status(500).json(createErrorResponse(500, error.message ));
   }
