@@ -34,7 +34,7 @@ describe('GET v1 fragment by ID', () => {
   // Using a valid username/password and valid fragment ID ending with .html
   // should return the fragment's markdown data converted to html
   test(`authenticated user get a fragment's data with supported extension`, async () => {
-    const markdown = `## Lorem Ipsum\n\nadipisicing elit, sed do eiusmod`;
+    const markdown = `## Lorem Header\n\nadipisicing elit, sed do eiusmod`;
 
     // First, create a fragment to retrieve
     const res1 = await request(app).post('/v1/fragments')
