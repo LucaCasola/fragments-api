@@ -45,9 +45,9 @@ module.exports = async (req, res) => {
     if (!format || format === fragment.mimeType) {
       logger.info(`No conversion necessary, returning fragment data as is`);
       const fragmentData = await fragment.getData();
-      res.set('Content-Type', fragment.mimeType);
-      res.set('Content-Length', fragment.size);
-      return res.status(200).send(fragmentData.toString());
+      // Set headers (Content-Type and Content-Length) and status for HTML response
+      res.writeHead(200, { 'Content-Type': fragment.type, 'Content-Length': fragment.size });
+      return res.end(fragmentData);
     } 
     // If the requested format is a supported conversion for the requested fragment
     else if (fragment.formats.includes(format)) {
@@ -57,9 +57,9 @@ module.exports = async (req, res) => {
       if (fragment.type == 'text/markdown' && format === 'text/html') {
         logger.info(`Converting fragment's markdown data to HTML`);
         const htmlData = await convertMarkdownToHtml(fragmentData.toString());
-        res.set('Content-Type', 'text/html');
-        res.set('Content-Length', Buffer.byteLength(htmlData));
-        return res.status(200).send(htmlData);
+        // Set headers (Content-Type and Content-Length) and status for HTML response
+        res.writeHead(200, { 'Content-Type': 'text/html', 'Content-Length': Buffer.byteLength(htmlData) });
+        return res.end(htmlData);
       }
     } else {
       logger.warn(`Unsupported format requested: ${format} for fragment ID: ${fragmentId}`);

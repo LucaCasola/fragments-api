@@ -17,24 +17,28 @@ describe('GET v1 fragment by ID', () => {
 
   // Using a valid username/password pair should give a success result with a fragment's data
   test(`authenticated user get a fragment's data`, async () => {
+    const text = 'This is a test fragment data';
+
     // First, create a fragment to retrieve
     const res1 = await request(app).post('/v1/fragments')
       .set('Content-Type', 'text/plain')  // Set a valid Content-Type header
-      .send(Buffer.from('11111'))  // Send a valid Buffer as the request body
+      .send(Buffer.from(text))  // Send a valid Buffer as the request body
       .auth('user1@email.com', 'password1');  // Send valid credentials
     expect(res1.statusCode).toBe(201);
     
     // Now, retrieve the fragment data by its ID
     const res2 = await request(app).get(`/v1/fragments/${res1.body.fragment.id}`).auth('user1@email.com', 'password1');
     expect(res2.statusCode).toBe(200);
-    expect(res2.headers['content-type']).toBe('text/plain; charset=utf-8');
-    expect(res2.text).toEqual('11111');  // The data should match what was sent
+    expect(res2.headers['content-type']).toBe('text/plain');
+    expect(res2.headers['content-length']).toBe(text.length.toString());
+    expect(res2.text).toEqual(text);  // The data should match what was sent
   });
 
   // Using a valid username/password and valid fragment ID ending with .html
   // should return the fragment's markdown data converted to html
   test(`authenticated user get a fragment's data with supported extension`, async () => {
     const markdown = `## Lorem Header\n\nadipisicing elit, sed do eiusmod`;
+    const html = `<h2>Lorem Header</h2>\n<p>adipisicing elit, sed do eiusmod</p>`;
 
     // First, create a fragment to retrieve
     const res1 = await request(app).post('/v1/fragments')
@@ -46,8 +50,9 @@ describe('GET v1 fragment by ID', () => {
     // Now, retrieve the fragment data converted from md to HTML by its ID
     const res2 = await request(app).get(`/v1/fragments/${res1.body.fragment.id}.html`).auth('user1@email.com', 'password1');
     expect(res2.statusCode).toBe(200);
-    expect(res2.headers['content-type']).toBe('text/html; charset=utf-8');
-    expect(res2.text.trim()).toEqual(`<h2>Lorem Header</h2>\n<p>adipisicing elit, sed do eiusmod</p>`);  // The data should match what was sent but converted to HTML
+    expect(res2.headers['content-type']).toBe('text/html');
+    expect(res2.headers['content-length']).toBe((html.length + 1).toString());  // +1 for the newline character
+    expect(res2.text.trim()).toEqual(html);  // The data should match what was sent but converted to HTML
   });
 
   test('returns 500 if Fragment.byUser throws', async () => {
