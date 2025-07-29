@@ -37,4 +37,7 @@ router.get('/fragments/:id/info', require('./get-id-info'));
 // Use a raw body parser for POST, which will give a `Buffer` Object or `{}` at `req.body`
 router.post('/fragments', rawBody(), require('./post'));
 
+// Define delete by id route
+router.delete('/fragments/:id', require('./delete-id'));
+
 module.exports = router;

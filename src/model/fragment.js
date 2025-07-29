@@ -97,8 +97,13 @@ class Fragment {
    * @param {string} id fragment's id
    * @returns Promise<void>
    */
-  static delete(ownerId, id) {
-    return deleteFragment(ownerId, id);
+  static async delete(ownerId, id) {
+    try {
+      return await deleteFragment(ownerId, id);
+    } catch (error) {
+      logger.error(`Failed to delete fragment with id ${id} for user ${ownerId}: ${error.message}`);
+      throw new Error(`Failed to delete fragment: ${id}, ${error}`);
+    }
   }
 
   /**
