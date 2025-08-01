@@ -31,3 +31,21 @@ HTTP/1.1 200
 Content-Type: text/plain; charset=utf-8
 [Asserts]
 body == "Fragment with UTF-8 encoding!"
+
+
+# 3. CLEANUP: Authenticated DELETE to /v1/fragments/:id
+DELETE {{url}}
+[BasicAuth]
+user1@email.com:password1
+
+# We expect to get back HTTP 200
+HTTP/1.1 200
+
+
+# 4. CLEANUP: Authenticated GET to /v1/fragments/:id to make sure the fragment was deleted
+GET {{url}}
+[BasicAuth]
+user1@email.com:password1
+
+# We expect to get back HTTP 404
+HTTP/1.1 404

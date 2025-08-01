@@ -44,3 +44,21 @@ Content-Type: text/plain
 Content-Length: 19
 [Asserts]
 body == "This is a fragment!"
+
+
+# 3. CLEANUP: Authenticated DELETE to /v1/fragments/:id
+DELETE {{url}}
+[BasicAuth]
+user1@email.com:password1
+
+# We expect to get back HTTP 200
+HTTP/1.1 200
+
+
+# 4. CLEANUP: Authenticated GET to /v1/fragments/:id to make sure the fragment was deleted
+GET {{url}}
+[BasicAuth]
+user1@email.com:password1
+
+# We expect to get back HTTP 404
+HTTP/1.1 404
