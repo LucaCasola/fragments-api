@@ -18,24 +18,28 @@
             "essential": true,
             "environment": [
                 {
-                    "name": "AWS_COGNITO_POOL_ID",
-                    "value": "us-east-1_KRC5WrnDi"
-                },
-                {
                     "name": "PORT",
                     "value": "80"
-                },
-                {
-                    "name": "AWS_COGNITO_CLIENT_ID",
-                    "value": "6asjf6on41otni6u78lm7tdmvp"
                 },
                 {
                     "name": "LOG_LEVEL",
                     "value": "info"
                 }, 
                 {
+                    "name": "AWS_COGNITO_POOL_ID",
+                    "value": "us-east-1_KRC5WrnDi"
+                },
+                {
+                    "name": "AWS_COGNITO_CLIENT_ID",
+                    "value": "6asjf6on41otni6u78lm7tdmvp"
+                },
+                {
                     "name": "AWS_S3_BUCKET_NAME",
                     "value": "lcasola-fragments"
+                },
+                {
+                    "name": "AWS_DYNAMODB_TABLE_NAME",
+                    "value": "fragments"
                 }
             ],
             "environmentFiles": [],
