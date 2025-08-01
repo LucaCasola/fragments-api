@@ -82,8 +82,8 @@ HTTP/1.1 200
 jsonpath "$.status" == "ok"
 # The response should contain both IDs for the fragments we created
 jsonpath "$.userFragments" count == 2
-jsonpath "$.userFragments[0]" == "{{fragment1_id}}"
-jsonpath "$.userFragments[1]" == "{{fragment2_id}}"
+jsonpath "$.userFragments" contains "{{fragment1_id}}"
+jsonpath "$.userFragments" contains "{{fragment2_id}}"
 
 
 # 6. Authenticated DELETE to /v1/fragments/:id for the first fragment
@@ -114,6 +114,7 @@ HTTP/1.1 200
 [Asserts]
 jsonpath "$.status" == "ok"
 # The response should contain only the second fragment ID, as the first one was deleted
+jsonpath "$.userFragments" count == 1
 jsonpath "$.userFragments[0]" == "{{fragment2_id}}"
 
 
