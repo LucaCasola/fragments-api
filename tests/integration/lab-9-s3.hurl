@@ -1,5 +1,7 @@
-# tests/integration/post-fragments-charset.hurl
-# Authenticated POST to /v1/fragments
+# tests/integration/lab-9-s3.hurl
+# This file contains tests for S3 integration
+
+# 1. Authenticated json POST to /v1/fragments
 POST http://localhost:8080/v1/fragments
 # We're sending a plain text fragment, but with a specific charset
 Content-Type: text/plain
@@ -9,14 +11,10 @@ user1@email.com:password1
 # Body of the request
 `Hello S3!`
 
-# We expect to get back an HTTP 201
+# We expect to get back HTTP 201
 HTTP/1.1 201
-# We have various assertions about the response that we want to check
 [Asserts]
-# The Location header should look like what we expect (including the fragment id)
 header "Location" matches "^http:\/\/localhost:8080\/v1\/fragments\/[A-Za-z0-9_-]+$"
-
-# Capture the Location URL into a variable named `url`
 [Captures]
 url: header "Location"
 
@@ -26,6 +24,7 @@ GET {{url}}
 [BasicAuth]
 user1@email.com:password1
 
+# We expect to get back HTTP 200
 HTTP/1.1 200
 Content-Type: text/plain
 [Asserts]
@@ -37,6 +36,7 @@ DELETE {{url}}
 [BasicAuth]
 user1@email.com:password1
 
+# We expect to get back HTTP 200
 HTTP/1.1 200
 
 
@@ -45,4 +45,5 @@ GET {{url}}
 [BasicAuth]
 user1@email.com:password1
 
+# We expect to get back HTTP 404
 HTTP/1.1 404

@@ -1,7 +1,10 @@
-# Health Check Test
+# tests/integration/health-check.hurl
+# This file contains tests for the health check endpoint
+
+# Authenticated GET to /
 GET http://localhost:8080
 
-# We should get back an HTTP 1.1 200 response
+# We expect to get back HTTP 200
 HTTP/1.1 200
 # We should get back a non-cacheable response (cache-control header)
 Cache-Control: no-cache

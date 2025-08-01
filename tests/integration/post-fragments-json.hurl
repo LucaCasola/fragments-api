@@ -1,4 +1,5 @@
-# tests/integration/post-fragments.hurl
+# tests/integration/post-fragments-json.hurl
+
 # Authenticated POST to /v1/fragments
 POST http://localhost:8080/v1/fragments
 # We're sending a plain text fragment
@@ -9,7 +10,7 @@ user1@email.com:password1
 # Body of the request
 `{"data": "This is a fragment!"}`
 
-# We expect to get back an HTTP 201
+# We expect to get back HTTP 201
 HTTP/1.1 201
 # We have various assertions about the response that we want to check
 [Asserts]
@@ -21,7 +22,6 @@ jsonpath "$.fragment.id" matches "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-
 # Our ownerId hash is a hex encoded string
 jsonpath "$.fragment.ownerId" matches "^[0-9a-fA-F]+$"
 # Basic check for the presence of created and updated date strings.
-# You could also write a regex for this and use matches
 jsonpath "$.fragment.created" isString
 jsonpath "$.fragment.updated" isString
 jsonpath "$.fragment.type" == "application/json"
@@ -31,11 +31,13 @@ jsonpath "$.fragment.size" == 31
 [Captures]
 url: header "Location"
 
+
 # 2. Try to GET the fragment we just posted by its URL
 GET {{url}}
 [BasicAuth]
 user1@email.com:password1
 
+# We expect to get back HTTP 200
 HTTP/1.1 200
 Content-Type: application/json
 Content-Length: 31
