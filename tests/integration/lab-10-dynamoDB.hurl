@@ -115,7 +115,7 @@ HTTP/1.1 200
 jsonpath "$.status" == "ok"
 # The response should contain only the second fragment ID, as the first one was deleted
 jsonpath "$.userFragments" count == 1
-jsonpath "$.userFragments[0]" == "{{fragment2_id}}"
+jsonpath "$.userFragments" contains "{{fragment2_id}}"
 
 
 # 9. CLEANUP: Authenticated DELETE to /v1/fragments/:id for the second fragment
