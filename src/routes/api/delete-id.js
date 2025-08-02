@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
     logger.info(`ownerId received: ${ownerId}`);
     logger.info(`fragmentId received: ${fragmentId}`);
     await Fragment.delete(ownerId, fragmentId);
-    return res.status(200).json(createSuccessResponse("yippee"));
+    return res.status(200).json(createSuccessResponse("delete successful"));
   } catch (error) {
     logger.error(`Error deleting fragment ${fragmentId} for userID: ${ownerId}. Error message: ${error.message}`);
     return res.status(500).json(createErrorResponse(500, error.message));
