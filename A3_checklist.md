@@ -11,7 +11,7 @@ Please make sure that all of the following items have been successfully complete
 - [x] Unit tests and Integration tests run on every commit to `main` branch via GitHub Actions CI workflow
 - [x] Fragments Metadata stored in Amazon DynamoDB, with integration tests using DynamoDB Local container
 - [x] Fragments Data stored in Amazon S3, with integration tests using LocalStack container
-- [ ] `fragments` server data model configurable via `.env` to run using either `MemoryDB` or AWS (S3, DynamoDB)
+- [x] `fragments` server data model configurable via `.env` to run using either `MemoryDB` or AWS (S3, DynamoDB)
 - [ ] `POST /fragments` can create any supported text, image or JSON fragments, with tests. See 4.3.
 - [ ] `PUT /fragments:id` can update an authenticated user's existing fragment, with tests. See 4.6.
 - [ ] `DELETE /fragments/:id` can delete an authenticated user's existing fragment, with tests. See 4.8.
