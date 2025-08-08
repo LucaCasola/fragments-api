@@ -43,9 +43,9 @@ Students who are interested in taking their project and AWS knowledge to the nex
 
 - [x] Web app running on localhost and connecting to your API server running on AWS Elastic Container Service and authenticating via your Amazon Cognito User Pool.
 - [ ] Support for users to create fragments of any type via the web app
-- [ ] Support for users to view their fragments via the web app
+- [x] Support for users to view their fragments via the web app
 - [ ] Support for users to update their existing fragments via the web app
-- [ ] Support for users to delete their existing fragments via the web app
+- [x] Support for users to delete their existing fragments via the web app
 - [ ] Support for offline behavior (what if the internet is down when a student/factory worker tries to upload a fragment / load the fragments data, etc. You may need to do some extra research). Implement some PWA feature (progressive web application, persist data locally in the browser using indexedDB, cache, etc.)
 - [x] All features working in the web app (i.e., not via `console.log()`)
 
