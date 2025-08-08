@@ -4,7 +4,7 @@ Please make sure that all of the following items have been successfully complete
 
 ## API Server Checklist
 
-- Clean code
+- [x] Clean code
 - [x] Docker Compose setup to run `fragments`, DynamoDB Local, and S3 LocalStack containers together in development and GitHub Actions CI workflow for integration testing
 - [x] Integration tests using [Hurl](https://hurl.dev/) and `docker compose` properly set-up with scripts to easily run them
 - [ ] Integration test cases cover all major aspects of the Fragments HTTP API Specification (i.e., all routes, success and error cases) using HTTP Basic Auth (i.e., testing with Amazon Cognito not necessary)
