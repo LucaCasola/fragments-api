@@ -11,17 +11,20 @@ services:
     build: .
     # Environment variables to use
     environment:
+        #--------'cognito' OR 'basic' for AUTH_TYPE-------------------------------------------
+        - AUTH_TYPE=basic
+        #-------------------------------------------------------
         # Our API will be running on http://localhost:8080
         - API_URL=http://localhost:8080
-        # Use Basic Auth (for running tests, CI)
         - HTPASSWD_FILE=tests/.htpasswd
         # Use the LOG_LEVEL set in the host environment, or default to info
         - LOG_LEVEL=${LOG_LEVEL:-info}
-        - AUTH_TYPE=basic
-        - DB_TYPE=aws
         - AWS_REGION=us-east-1
         - AWS_DEFAULT_REGION=us-east-1
-
+        # AWS Amazon Cognito Variables
+        - AWS_COGNITO_POOL_ID=us-east-1_KRC5WrnDi
+        - AWS_COGNITO_CLIENT_ID=6asjf6on41otni6u78lm7tdmvp
+        - DB_TYPE=aws
         # Use the LocalStack endpoint vs. AWS for S3 AWS SDK clients.
         # NOTE: we use Docker's internal network to the localstack container
         - AWS_S3_ENDPOINT_URL=http://localstack:4566
