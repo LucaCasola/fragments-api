@@ -4,7 +4,7 @@ Please make sure that all of the following items have been successfully complete
 
 ## API Server Checklist
 
-- Clean code
+- [x] Clean code
 - [x] Docker Compose setup to run `fragments`, DynamoDB Local, and S3 LocalStack containers together in development and GitHub Actions CI workflow for integration testing
 - [x] Integration tests using [Hurl](https://hurl.dev/) and `docker compose` properly set-up with scripts to easily run them
 - [ ] Integration test cases cover all major aspects of the Fragments HTTP API Specification (i.e., all routes, success and error cases) using HTTP Basic Auth (i.e., testing with Amazon Cognito not necessary)
@@ -43,9 +43,9 @@ Students who are interested in taking their project and AWS knowledge to the nex
 
 - [x] Web app running on localhost and connecting to your API server running on AWS Elastic Container Service and authenticating via your Amazon Cognito User Pool.
 - [ ] Support for users to create fragments of any type via the web app
-- [ ] Support for users to view their fragments via the web app
+- [x] Support for users to view their fragments via the web app
 - [ ] Support for users to update their existing fragments via the web app
-- [ ] Support for users to delete their existing fragments via the web app
+- [x] Support for users to delete their existing fragments via the web app
 - [ ] Support for offline behavior (what if the internet is down when a student/factory worker tries to upload a fragment / load the fragments data, etc. You may need to do some extra research). Implement some PWA feature (progressive web application, persist data locally in the browser using indexedDB, cache, etc.)
 - [x] All features working in the web app (i.e., not via `console.log()`)
 
