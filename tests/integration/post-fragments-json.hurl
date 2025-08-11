@@ -10,7 +10,7 @@ user1@email.com:password1
 # Body of the request
 `{"data": "This is a fragment!"}`
 
-# We expect to get back HTTP 201
+# Expect to get back HTTP 201
 HTTP/1.1 201
 # We have various assertions about the response that we want to check
 [Asserts]
@@ -37,7 +37,7 @@ GET {{url}}
 [BasicAuth]
 user1@email.com:password1
 
-# We expect to get back HTTP 200
+# Expect to get back HTTP 200
 HTTP/1.1 200
 Content-Type: application/json
 Content-Length: 31
@@ -50,7 +50,7 @@ DELETE {{url}}
 [BasicAuth]
 user1@email.com:password1
 
-# We expect to get back HTTP 200
+# Expect to get back HTTP 200
 HTTP/1.1 200
 
 
@@ -59,5 +59,5 @@ GET {{url}}
 [BasicAuth]
 user1@email.com:password1
 
-# We expect to get back HTTP 404
+# Expect to get back HTTP 404
 HTTP/1.1 404

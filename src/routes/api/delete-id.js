@@ -2,22 +2,21 @@
 
 const logger = require('../../logger');
 const { Fragment } = require('../../model/fragment');
-
-// Used to create a success response object in HTTP responses
 const { createSuccessResponse, createErrorResponse } = require('../../response');
 
-// Delete a fragment by ID for a specific user
+// Delete a fragment by ID for the current user
 module.exports = async (req, res) => {
   const fragmentId = req.params.id;
   const ownerId = req.user;
+  logger.info(`ownerId received: ${ownerId}`);
+  logger.info(`fragmentId received: ${fragmentId}`);
 
   try {
-    logger.info(`ownerId received: ${ownerId}`);
-    logger.info(`fragmentId received: ${fragmentId}`);
-    await Fragment.delete(ownerId, fragmentId);
+    await Fragment.byId(ownerId, fragmentId);  // Check if fragment exists
+    await Fragment.delete(ownerId, fragmentId); // Delete the fragment
     return res.status(200).json(createSuccessResponse("delete successful"));
   } catch (error) {
-    logger.error(`Error deleting fragment ${fragmentId} for userID: ${ownerId}. Error message: ${error.message}`);
-    return res.status(500).json(createErrorResponse(500, error.message));
+    logger.error(`Error processing DELETE request for fragment with id=${req.params.id}. ${error.message}`);
+    return res.status(error.code || 500).json(createErrorResponse(error.code || 500, `Failed to delete fragment. ${error.message}`));
   }
 };

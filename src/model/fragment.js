@@ -84,11 +84,22 @@ class Fragment {
    * @returns Promise<Fragment>
    */
   static async byId(ownerId, id) {
+    // Attempt to retrieve data. Throw if no data is retrieved
     const data = await readFragment(ownerId, id);
-    const fragment = new Fragment({id, ownerId, created: data.created, 
-      updated: data.updated, type: data.type, size: data.size});
+    if (!data) {
+      logger.error(`Fragment with id=${id} does not exist`);
+      const error = new Error(`Fragment with id=${id} does not exist`);
+      error.code = 404;
+      throw error;
+    }
 
-    return fragment;
+    try {
+      const fragment = new Fragment({id, ownerId, created: data.created, updated: data.updated, type: data.type, size: data.size});
+      return fragment;
+    } catch (error) {
+      logger.error(`Failed to create return fragment after retrieving data for fragment with id=${id}. Error: ${error.message}`);
+      throw new Error(`Failed to create return fragment after retrieving data for fragment with id=${id}.`);
+    }
   }
 
   /**
@@ -100,9 +111,11 @@ class Fragment {
   static async delete(ownerId, id) {
     try {
       return await deleteFragment(ownerId, id);
-    } catch (error) {
-      logger.error(`Failed to delete fragment with id ${id} for user ${ownerId}: ${error.message}`);
-      throw new Error(`Failed to delete fragment: ${id}, ${error}`);
+    } catch {
+      logger.error(`Fragment with id=${id} does not exist`);
+      const error = new Error(`Fragment with id=${id} does not exist`);
+      error.code = 404;
+      throw error;
     }
   }
 
@@ -115,7 +128,7 @@ class Fragment {
     try {
       await writeFragment(this);
     } catch (error) {
-      logger.error(`Failed to save fragment id: ${this.id} for user: ${this.ownerId}. Error: ${error.message}`);
+      logger.error(`Failed to save fragment with id=${this.id} for userId=${this.ownerId}. Error: ${error.message}`);
       throw new Error(`Failed to save fragment: ${this.id}, ${error}`);
     }
   }
@@ -143,7 +156,7 @@ class Fragment {
       await writeFragmentData(this.ownerId, this.id, data);
     } catch (error) {
       logger.error(
-        `Failed to save fragment id: ${this.id} for user: ${this.ownerId}. Error: ${error.message}`
+        `Failed to save fragment with id=${this.id} for userId=${this.ownerId}. Error: ${error.message}`
       );
       throw new Error(`Failed to save fragment: ${this.id}, ${error}`);
     }

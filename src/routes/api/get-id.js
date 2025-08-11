@@ -2,10 +2,7 @@
 
 const logger = require('../../logger');
 const { Fragment, validTypes } = require('../../model/fragment');
-
-// Used to create a success response object in HTTP responses
 const { createErrorResponse } = require('../../response');
-
 const MarkdownIt = require('markdown-it');
 
 const convertMarkdownToHtml = async (markdown) => {
@@ -16,7 +13,6 @@ const convertMarkdownToHtml = async (markdown) => {
 
 // Get a specific fragment by ID for the current user
 module.exports = async (req, res) => {
-  // Get request parameters
   const reqId = req.params.id;  // Get the ID + ext (if ext is included) from the request parameters (ex: 123-12344-541-123.txt)
   const ownerId = req.user;  // Get the owner ID from the authenticated user
   var fragmentId = reqId;
@@ -39,13 +35,14 @@ module.exports = async (req, res) => {
 
   try {
     logger.info(`Fetching fragment: ${fragmentId}, for user: ${ownerId}`);
+
+    // Retrieve fragment by id. Will throw 404 if fragment is not found
     const fragment = await Fragment.byId(ownerId, fragmentId);
 
     // If no file extension is specified or file extension is the same, return the fragment data as is
     if (!format || format === fragment.mimeType) {
       logger.info(`No conversion necessary, returning fragment data as is`);
       const fragmentData = await fragment.getData();
-      // Set headers (Content-Type and Content-Length) and status for HTML response
       res.writeHead(200, { 'Content-Type': fragment.type, 'Content-Length': fragment.size });
       return res.end(fragmentData);
     } 
@@ -62,11 +59,10 @@ module.exports = async (req, res) => {
         return res.end(htmlData);
       }
     } else {
-      logger.warn(`Unsupported format requested: ${format} for fragment ID: ${fragmentId}`);
-      return res.status(400).json(createErrorResponse(400, `Unsupported format requested: ${format}`));
+      throw Object.assign(new Error(`Unsupported conversion format: ${format}`), { code: 400 });
     }
-  } catch (err) {
-    logger.error(`Error fetching fragment ${fragmentId}: ${err.message}`);
-    return res.status(404).json(createErrorResponse(404, `Fragment not found for fragmentId: ${fragmentId}`));
+  } catch (error) {
+    logger.error(`Error processing GET data request for fragment with id=${req.params.id}. ${error.message}`);
+    return res.status(error.code || 500).json(createErrorResponse(error.code || 500, `Failed to get fragment data. ${error.message}`));
   }
 };

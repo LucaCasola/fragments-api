@@ -11,8 +11,9 @@ user1@email.com:password1
 # Body of the request
 `Hello S3!`
 
-# We expect to get back HTTP 201
+# Expect to get back HTTP 201
 HTTP/1.1 201
+# Check various assertions about the response
 [Asserts]
 header "Location" matches "^http:\/\/localhost:8080\/v1\/fragments\/[A-Za-z0-9_-]+$"
 [Captures]
@@ -24,7 +25,7 @@ GET {{url}}
 [BasicAuth]
 user1@email.com:password1
 
-# We expect to get back HTTP 200
+# Expect to get back HTTP 200
 HTTP/1.1 200
 Content-Type: text/plain
 [Asserts]
@@ -36,7 +37,7 @@ DELETE {{url}}
 [BasicAuth]
 user1@email.com:password1
 
-# We expect to get back HTTP 200
+# Expect to get back HTTP 200
 HTTP/1.1 200
 
 
@@ -45,5 +46,5 @@ GET {{url}}
 [BasicAuth]
 user1@email.com:password1
 
-# We expect to get back HTTP 404
+# Expect to get back HTTP 404
 HTTP/1.1 404

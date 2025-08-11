@@ -11,7 +11,7 @@ user1@email.com:password1
 # Body of the request
 `{"service": "DynamoDB"}`
 
-# We expect to get back HTTP 201
+# Expect to get back HTTP 201
 HTTP/1.1 201
 # Capture the Location header and fragment ID for further tests
 [Captures]
@@ -24,7 +24,7 @@ GET {{fragment1_url}}/info
 [BasicAuth]
 user1@email.com:password1
 
-# We expect to get back HTTP 200
+# Expect to get back HTTP 200
 HTTP/1.1 200
 [Asserts]
 jsonpath "$.status" == "ok"
@@ -46,7 +46,7 @@ Content-Type: text/markdown
 user1@email.com:password1
 `DynamoDB is **great**.`
 
-# We expect to get back HTTP 201
+# Expect to get back HTTP 201
 HTTP/1.1 201
 # Capture the Location header and fragment ID for further tests
 [Captures]
@@ -59,7 +59,7 @@ GET {{fragment2_url}}/info
 [BasicAuth]
 user1@email.com:password1
 
-# We expect to get back HTTP 200
+# Expect to get back HTTP 200
 HTTP/1.1 200
 [Asserts]
 jsonpath "$.status" == "ok"
@@ -76,7 +76,7 @@ GET http://localhost:8080/v1/fragments
 [BasicAuth]
 user1@email.com:password1
 
-# We expect to get back an HTTP 200
+# Expect to get back an HTTP 200
 HTTP/1.1 200
 [Asserts]
 jsonpath "$.status" == "ok"
@@ -91,7 +91,7 @@ DELETE {{fragment1_url}}
 [BasicAuth]
 user1@email.com:password1
 
-# We expect to get back HTTP 200
+# Expect to get back HTTP 200
 HTTP/1.1 200
 
 
@@ -100,7 +100,7 @@ GET {{fragment1_url}}
 [BasicAuth]
 user1@email.com:password1
 
-# We expect to get back HTTP 404
+# Expect to get back HTTP 404
 HTTP/1.1 404
 
 
@@ -109,7 +109,7 @@ GET http://localhost:8080/v1/fragments
 [BasicAuth]
 user1@email.com:password1
 
-# We expect to get back HTTP 200
+# Expect to get back HTTP 200
 HTTP/1.1 200
 [Asserts]
 jsonpath "$.status" == "ok"
@@ -123,7 +123,7 @@ DELETE {{fragment2_url}}
 [BasicAuth]
 user1@email.com:password1
 
-# We expect to get back HTTP 200
+# Expect to get back HTTP 200
 HTTP/1.1 200
 
 
@@ -132,5 +132,5 @@ GET {{fragment2_url}}
 [BasicAuth]
 user1@email.com:password1
 
-# We expect to get back HTTP 404
+# Expect to get back HTTP 404
 HTTP/1.1 404

@@ -27,7 +27,7 @@ describe('POST v1 fragments', () => {
       .auth('user1@email.com', 'password1')  // Send valid credentials
 
     expect(res.statusCode).toBe(415);
-    expect(res.body.error.message).toBe('Unsupported Content-Type: invalid/type');
+    expect(res.body.error.message).toBe('Failed to create fragment. Unsupported Content-Type: invalid/type');
   });
 
   test('empty request body is rejected', async () => {
@@ -36,7 +36,7 @@ describe('POST v1 fragments', () => {
       .auth('user1@email.com', 'password1')  // Send valid credentials
 
     expect(res.statusCode).toBe(400);
-    expect(res.body.error.message).toBe('Request body must be a Buffer and must not be empty');
+    expect(res.body.error.message).toBe('Failed to create fragment. Request body must be a Buffer and must not be empty');
   });
 
   test('returns 500 if anything throws', async () => {

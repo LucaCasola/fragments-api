@@ -2,20 +2,20 @@
 
 const logger = require('../../logger');
 const { Fragment } = require('../../model/fragment');
-
-// Used to create a success response object in HTTP responses
 const { createErrorResponse, createSuccessResponse } = require('../../response');
 
+// Get metadata for a fragment by ID for the current user
 module.exports = async (req, res) => {
+  const fragmentId = req.params.id;
+  const ownerId = req.user;
+  logger.info(`ownerId received: ${ownerId}`);
+  logger.info(`fragmentId received: ${fragmentId}`);
+  
   try {
-    const fragmentId = req.params.id;
-    const ownerId = req.user;
-    logger.info(`ownerId received: ${ownerId}`);
-    logger.info(`fragmentId received: ${fragmentId}`);
     const fragment = await Fragment.byId(ownerId, fragmentId);
     return res.status(200).json(createSuccessResponse({ fragment }));
   } catch (error) {
-    logger.error(`Error fetching fragments for user: ${error.message} and id: ${req.params.id}`);
-    return res.status(500).json(createErrorResponse(500, error.message));
+    logger.error(`Error processing GET metadata request for fragment with id=${req.params.id}. ${error.message}`);
+    return res.status(error.code || 500).json(createErrorResponse(error.code || 500, `Failed to get fragment metadata. ${error.message}`));
   }
 };

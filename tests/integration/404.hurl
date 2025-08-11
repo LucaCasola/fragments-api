@@ -4,5 +4,5 @@
 # Authenticated GET to a non-existent fragment
 GET http://localhost:8080/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
-# We expect to get back HTTP 404
+# Expect to get back HTTP 404
 HTTP/1.1 404
