@@ -24,7 +24,15 @@
                 {
                     "name": "LOG_LEVEL",
                     "value": "info"
-                }, 
+                },
+                {
+                    "name": "AUTH_TYPE",
+                    "value": "cognito"
+                },
+                {
+                    "name": "DB_TYPE",
+                    "value": "aws"
+                },
                 {
                     "name": "AWS_COGNITO_POOL_ID",
                     "value": "us-east-1_KRC5WrnDi"
