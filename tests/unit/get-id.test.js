@@ -50,7 +50,7 @@ describe('GET v1 fragment by ID', () => {
     // Now, retrieve the fragment data converted from md to HTML by its ID
     const res2 = await request(app).get(`/v1/fragments/${res1.body.fragment.id}.html`).auth('user1@email.com', 'password1');
     expect(res2.statusCode).toBe(200);
-    expect(res2.headers['content-type']).toBe('text/html');
+    expect(res2.headers['content-type']).toBe('text/html; charset=utf-8');
     expect(res2.headers['content-length']).toBe((html.length + 1).toString());  // +1 for the newline character
     expect(res2.text.trim()).toEqual(html);  // The data should match what was sent but converted to HTML
   });

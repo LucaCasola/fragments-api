@@ -4,6 +4,7 @@ const logger = require('../../logger');
 const { Fragment, validTypes } = require('../../model/fragment');
 const { createErrorResponse } = require('../../response');
 const MarkdownIt = require('markdown-it');
+const sharp = require('sharp');
 
 const convertMarkdownToHtml = async (markdown) => {
   const md = new MarkdownIt();
@@ -43,8 +44,10 @@ module.exports = async (req, res) => {
     if (!format || format === fragment.mimeType) {
       logger.info(`No conversion necessary, returning fragment data as is`);
       const fragmentData = await fragment.getData();
-      res.writeHead(200, { 'Content-Type': fragment.type, 'Content-Length': fragment.size });
-      return res.end(fragmentData);
+      res.setHeader('Content-Type', fragment.type);
+      //res.writeHead(200, { 'Content-Type': fragment.type, 'Content-Length': fragment.size });
+      logger.info(`fragmentData: ${fragmentData}`);
+      return res.status(200).send(fragmentData);
     } 
     // If the requested format is a supported conversion for the requested fragment
     else if (fragment.formats.includes(format)) {
@@ -55,8 +58,21 @@ module.exports = async (req, res) => {
         logger.info(`Converting fragment's markdown data to HTML`);
         const htmlData = await convertMarkdownToHtml(fragmentData.toString());
         // Set headers (Content-Type and Content-Length) and status for HTML response
-        res.writeHead(200, { 'Content-Type': 'text/html', 'Content-Length': Buffer.byteLength(htmlData) });
-        return res.end(htmlData);
+        res.setHeader('Content-Type', 'text/html');
+        res.setHeader('Content-Length', Buffer.byteLength(htmlData));
+        return res.status(200).send(htmlData);
+      } // Image conversions using sharp
+      else if (fragment.type.startsWith('image/')) {
+        try {
+          const formatName = format.startsWith('image/') ? format.split('/')[1] : format;
+          const convertedImage = await sharp(fragmentData).toFormat(formatName).toBuffer();
+          res.setHeader('Content-Type', format); // Use the full MIME type for Content-Type
+          return res.status(200).send(convertedImage);
+        } catch (error) {
+          throw new Error(
+            `Image conversion from ${fragment.type} to ${format} failed: ${error.message}`
+          );
+        }
       }
     } else {
       throw Object.assign(new Error(`Unsupported conversion format: ${format}`), { code: 400 });
