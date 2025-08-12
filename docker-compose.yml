@@ -12,7 +12,7 @@ services:
     # Environment variables to use
     environment:
         #--------'cognito' OR 'basic' for AUTH_TYPE-------------------------------------------
-        - AUTH_TYPE=cognito
+        - AUTH_TYPE=basic
         #-------------------------------------------------------
         # Our API will be running on http://localhost:8080
         - API_URL=http://localhost:8080
